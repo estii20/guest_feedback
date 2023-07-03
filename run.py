@@ -115,19 +115,49 @@ update_email_guest_feedback_worksheet(email)
 
 def get_front_desk_score():
     """
-    Get guest name input from the user until
-    name data entered correctly.
+    Get guest front desk score input from the user until
+    score data entered correctly.
     """
     while True:
-        print("Please enter guest name.\n")
-        print("Example: Joe Blogs\n")
+        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Example: 1\n")
 
-        data_str = input("Enter guest first name, space, last name here: \n")
+        data_str = input("Enter guest front desk score here: \n")
 
-        name_data = data_str.split(" ")
+        front_desk_data = data_str.split(" ")
 
-        if validate_name(name_data):
-            print("Name is valid!")
+        if validate_front_desk_score(front_desk_data):
+            print("Score is valid!")
             break
 
-    return name_data
+    return front_desk_data
+
+
+def validate_front_desk_score(input):
+    """
+    Raises action from user if score not entered
+    in correct format.
+    """
+    try:
+        if input == validate_front_desk_score:
+            print("Thanks\n")
+    except ValueError:
+        print("Score format incorrect, please try again\n")
+        return False
+
+    return True
+
+
+def update_front_desk_score_guest_feedback_worksheet(front_desk):
+    """
+    Update guest feedback worksheet,
+    add new row with the front desk score provided
+    """
+    print("Updating score of front desk of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(front_desk)
+    print("Front desk score updated successfully.\n")
+
+
+front_desk = get_front_desk_score()
+update_front_desk_score_guest_feedback_worksheet(front_desk)
