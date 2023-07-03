@@ -12,9 +12,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
-feedback = SHEET.worksheet('feedback')
+def get_name_data():
+    """
+    Get guest name input from the user.
+    """
+    print("Please enter guest name.")
+    print("Example: Joe Blogs\n")
 
-data = feedback.get_all_values()
+    data_str = input("Enter guest name here: ")
+    print(f"The data provided is {data_str}")
 
-print(data)
+get_name_data()
+
 
