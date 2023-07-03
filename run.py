@@ -15,7 +15,8 @@ SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
 def get_name_data():
     """
-    Get guest name input from the user.
+    Get guest name input from the user until
+    name data entered correctly.
     """
     while True:
         print("Please enter guest name.\n")
@@ -47,4 +48,16 @@ def validate_name(input):
     return True
 
 
-data = get_name_data()
+def update_name_guest_feedback_worksheet(name):
+    """
+    Update guest feedback worksheet,
+    add new row with the name data provided
+    """
+    print("Updating name of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(name)
+    print("Name data updated successfully.\n")
+
+
+name = get_name_data()
+update_name_guest_feedback_worksheet(name)
