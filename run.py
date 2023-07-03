@@ -16,12 +16,22 @@ def get_name_data():
     """
     Get guest name input from the user.
     """
-    print("Please enter guest name.")
+    print("Please enter guest name.\n")
     print("Example: Joe Blogs\n")
 
-    data_str = input("Enter guest name here: ")
-    print(f"The data provided is {data_str}")
+    data_str = input("Enter guest first name, space, last name here: \n")
+    
+    name_data = data_str.split(" ")
+    validate_name(name_data)
+
+def validate_name(input):
+    """
+    Raises action from user if strings not entered first name, space, last name.
+    """
+    try:
+        if data_str == validate_name:
+            print("Thanks " + name_data())
+    except: 
+        print("Enter first name, space, last name, please try again\n")
 
 get_name_data()
-
-
