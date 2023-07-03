@@ -12,26 +12,39 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
+
 def get_name_data():
     """
     Get guest name input from the user.
     """
-    print("Please enter guest name.\n")
-    print("Example: Joe Blogs\n")
+    while True:
+        print("Please enter guest name.\n")
+        print("Example: Joe Blogs\n")
 
-    data_str = input("Enter guest first name, space, last name here: \n")
-    
-    name_data = data_str.split(" ")
-    validate_name(name_data)
+        data_str = input("Enter guest first name, space, last name here: \n")
+
+        name_data = data_str.split(" ")
+
+        if validate_name(name_data):
+            print("Name is valid!")
+            break
+
+    return name_data
+
 
 def validate_name(input):
     """
-    Raises action from user if strings not entered first name, space, last name.
+    Raises action from user if name not entered
+    in correct format.
     """
     try:
-        if data_str == validate_name:
-            print("Thanks " + name_data())
-    except: 
+        if input == validate_name:
+            print("Thanks\n")
+    except ValueError:
         print("Enter first name, space, last name, please try again\n")
+        return False
 
-get_name_data()
+    return True
+
+
+data = get_name_data()
