@@ -211,3 +211,53 @@ def update_restaurant_score_guest_feedback_worksheet(restaurant):
 
 restaurant = get_restaurant_score()
 update_restaurant_score_guest_feedback_worksheet(restaurant)
+
+
+def get_spa_score():
+    """
+    Get guest spa score input from the user until
+    score data entered correctly.
+    """
+    while True:
+        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Example: 1\n")
+
+        data_str = input("Enter guest spa score here: \n")
+
+        spa_data = data_str.split(" ")
+
+        if validate_spa_score(spa_data):
+            print("Score is valid!")
+            break
+
+    return spa_data
+
+
+def validate_spa_score(input):
+    """
+    Raises action from user if score not entered
+    in correct format.
+    """
+    try:
+        if input == validate_spa_score:
+            print("Thanks\n")
+    except ValueError:
+        print("Score format incorrect, please try again\n")
+        return False
+
+    return True
+
+
+def update_spa_score_guest_feedback_worksheet(spa):
+    """
+    Update guest feedback worksheet,
+    add new row with the restaurant score provided
+    """
+    print("Updating score of spa of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(spa)
+    print("Restaurant score updated successfully.\n")
+
+
+spa = get_spa_score()
+update_spa_score_guest_feedback_worksheet(spa)
