@@ -1,6 +1,10 @@
 import gspread
 from google.oauth2.service_account import Credentials
 
+import pandas as pd
+
+import numpy as np
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -92,7 +96,7 @@ def validate_email(input):
         if input == validate_email:
             print("Thanks\n")
     except ValueError:
-        print("Email format incorrect, please try again\n")
+        print("Enter valid email e.g.joe.blogs@google.com, please try again\n")
         return False
 
     return True
