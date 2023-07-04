@@ -256,8 +256,58 @@ def update_spa_score_guest_feedback_worksheet(spa):
     print("Updating score of spa of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
     feedback_worksheet.append_row(spa)
-    print("Restaurant score updated successfully.\n")
+    print("Spa score updated successfully.\n")
 
 
 spa = get_spa_score()
 update_spa_score_guest_feedback_worksheet(spa)
+
+
+def get_hotel_room_score():
+    """
+    Get guest hotel room score input from the user until
+    score data entered correctly.
+    """
+    while True:
+        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Example: 1\n")
+
+        data_str = input("Enter guest hotel room score here: \n")
+
+        hotel_room_data = data_str.split(" ")
+
+        if validate_hotel_room_score(hotel_room_data):
+            print("Score is valid!")
+            break
+
+    return hotel_room_data
+
+
+def validate_hotel_room_score(input):
+    """
+    Raises action from user if score not entered
+    in correct format.
+    """
+    try:
+        if input == validate_hotel_room_score:
+            print("Thanks\n")
+    except ValueError:
+        print("Score format incorrect, please try again\n")
+        return False
+
+    return True
+
+
+def update_hotel_room_score_guest_feedback_worksheet(hotel_room):
+    """
+    Update guest feedback worksheet,
+    add new row with the restaurant score provided
+    """
+    print("Updating score of hotel room of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(hotel_room)
+    print("Hotel room score updated successfully.\n")
+
+
+hotel_room = get_hotel_room_score()
+update_hotel_room_score_guest_feedback_worksheet(hotel_room)
