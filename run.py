@@ -311,3 +311,53 @@ def update_hotel_room_score_guest_feedback_worksheet(hotel_room):
 
 hotel_room = get_hotel_room_score()
 update_hotel_room_score_guest_feedback_worksheet(hotel_room)
+
+
+def get_special_offers():
+    """
+    Get guest input from the user if guests would like special offers
+    checks yes or no is entered correctly.
+    """
+    while True:
+        print("Please enter yes or no if you would like special offers\n")
+        print("Example: yes\n")
+
+        data_str = input("Enter guest special offer option here: \n")
+
+        special_offers_data = data_str.split(" ")
+
+        if validate_special_offers(special_offers_data):
+            print("It is valid!")
+            break
+
+    return special_offers_data
+
+
+def validate_special_offers(input):
+    """
+    Raises action from user if data not entered
+    in correct format either yes or no.
+    """
+    try:
+        if input == validate_special_offers:
+            print("Thanks\n")
+    except ValueError:
+        print("Format incorrect, please try again with yes or no\n")
+        return False
+
+    return True
+
+
+def update_special_offers_guest_feedback_worksheet(special_offers):
+    """
+    Update guest feedback worksheet,
+    add new row with the yes for special offer and no for no special offer
+    """
+    print("Updating special offer of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(special_offers)
+    print("Special offers updated successfully.\n")
+
+
+special_offers = get_special_offers()
+update_special_offers_guest_feedback_worksheet(special_offers)
