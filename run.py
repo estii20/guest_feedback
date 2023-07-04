@@ -161,3 +161,53 @@ def update_front_desk_score_guest_feedback_worksheet(front_desk):
 
 front_desk = get_front_desk_score()
 update_front_desk_score_guest_feedback_worksheet(front_desk)
+
+
+def get_restaurant_score():
+    """
+    Get guest restaurant score input from the user until
+    score data entered correctly.
+    """
+    while True:
+        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Example: 1\n")
+
+        data_str = input("Enter guest restaurant score here: \n")
+
+        restaurant_data = data_str.split(" ")
+
+        if validate_restaurant_score(restaurant_data):
+            print("Score is valid!")
+            break
+
+    return restaurant_data
+
+
+def validate_restaurant_score(input):
+    """
+    Raises action from user if score not entered
+    in correct format.
+    """
+    try:
+        if input == validate_restaurant_score:
+            print("Thanks\n")
+    except ValueError:
+        print("Score format incorrect, please try again\n")
+        return False
+
+    return True
+
+
+def update_restaurant_score_guest_feedback_worksheet(restaurant):
+    """
+    Update guest feedback worksheet,
+    add new row with the restaurant score provided
+    """
+    print("Updating score of restaurant of guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(restaurant)
+    print("Restaurant score updated successfully.\n")
+
+
+restaurant = get_restaurant_score()
+update_restaurant_score_guest_feedback_worksheet(restaurant)
