@@ -1,7 +1,13 @@
+# API to add and view guest data in guest feedback spreadsheet
+# For authorisation for app access to gspread API
 import gspread
 from google.oauth2.service_account import Credentials
+# For access to the dataframes function
 import pandas as pd
+# For access to mean function
 import numpy as np
+# To print to the terminal
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -15,26 +21,43 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
 
-
-"""
-Program starts, main menu is displayed. Main menu contains two options.
+def main():
+    """
+    Program starts, main menu is displayed.
+    Main menu has two options.
     1. Enter responses
+        - get and validate data from user
+        -- name, email, score for each (front desk, restaurant, room, spa)
+        --- rating for each on scale 1-5
     2. View responses
+        - admin enters access code (hardcoded password)
+        -- later improvement: maintain a list of access codes
+        --- admin views data average score for each e.g. front desk
+        ---- admin gets guests who wish to receive special offers
+        """
+    print("Welcome")
+    print("What would you like to do?\n")
+    print("1. Enter responses \n")
+    print("2. View responses \n")
 
-1. Enter responses:
-    - Get and validate info from user
-        -- name, email, for each of [spa, room, reception] rating on a scale of 1 - 5
+    while True:
+        # 1. Ask for input from the admin
+        menu_choice = input("Enter response: \n").strip()
+        view_responses = input("Viewing responses...\n")
+        # 2. Check if the input violates the criteria 1 or 2
+        if menu_choice not in ["1", "2"]:
+            print("Please enter one of the choices above.")
+            continue
+        else:
+            break
 
-    - Put responses in sheet.
-
-2. View responses
-    -- admin enters some sort of access code
-        - simple initial way to do this is just have a hardcoded password in code
-        - Later improvement: maintain a list of access codes in the sheet
-            staff have access codes that they can just enter (no username).
-
-    -- Admin sees data, maybe with some aggregations such as averages, etc.
-"""
+        """
+        # after validation, user can input choice
+        """
+        if menu_choice == "1":
+            get_name_data()
+        else:
+            view_responses()
 
 
 def get_name_data():
@@ -385,3 +408,28 @@ def update_special_offers_guest_feedback_worksheet(special_offers):
 
 special_offers = get_special_offers()
 update_special_offers_guest_feedback_worksheet(special_offers)
+
+
+def calculate_mean_score():
+    """
+    Calculate the mean score for each column front desk, restaurant, spa, room.
+    """
+    print("Calculating mean front desk score...\n")
+    front_desk_column = SHEET.worksheet("guest_feedback").get_all_values()
+    front_desk_mean = front_desk_column
+    print("Mean average of front desk score is: " + front_desk_mean)
+    restaurant_column = SHEET.worksheet("guest_feedback").get_all_values()
+    restaurant_mean = restaurant_column
+    print("Mean average of restaurant score is: " + restaurant_mean)
+    spa_column = SHEET.worksheet("guest_feedback").get_all_values()
+    spa_mean = spa_column
+    print("Mean average of spa score is: " + spa_mean)
+    room_column = SHEET.worksheet("guest_feedback").get_all_values()
+    room_mean = room_column
+    print("Mean average of spa score is: " + room_mean)
+
+
+calculate_mean_score()
+
+
+main()
