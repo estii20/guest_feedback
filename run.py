@@ -1,8 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-
 import pandas as pd
-
 import numpy as np
 
 SCOPE = [
@@ -15,6 +13,28 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
+
+
+
+"""
+Program starts, main menu is displayed. Main menu contains two options.
+    1. Enter responses
+    2. View responses
+
+1. Enter responses:
+    - Get and validate info from user
+        -- name, email, for each of [spa, room, reception] rating on a scale of 1 - 5
+
+    - Put responses in sheet.
+
+2. View responses
+    -- admin enters some sort of access code
+        - simple initial way to do this is just have a hardcoded password in code
+        - Later improvement: maintain a list of access codes in the sheet
+            staff have access codes that they can just enter (no username).
+
+    -- Admin sees data, maybe with some aggregations such as averages, etc.
+"""
 
 
 def get_name_data():
@@ -255,7 +275,7 @@ def validate_spa_score(input):
 def update_spa_score_guest_feedback_worksheet(spa):
     """
     Update guest feedback worksheet,
-    add new row with the restaurant score provided
+    add new row with the spa score provided
     """
     print("Updating score of spa of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
