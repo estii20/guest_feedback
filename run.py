@@ -71,7 +71,7 @@ def get_name_data():
 
         data_str = input("Enter guest first name, space, last name here: \n")
 
-        name_data = data_str.split(" ")
+        name_data = data_str.strip()
 
         if validate_name(name_data):
             print("Name is valid!")
@@ -80,19 +80,19 @@ def get_name_data():
     return name_data
 
 
-def validate_name(input):
-    """
-    Raises action from user if name not entered
-    in correct format.
-    """
-    try:
-        if input == validate_name:
-            print("Thanks\n")
-    except ValueError:
-        print("Enter first name, space, last name, please try again\n")
+def validate_name(name_data):
+    # Raises action from user if name not entered
+    # in correct format.
+    if len(name_data) < 2:
+        print("Please enter a name that is at least 2 characters long.")
         return False
 
-    return True
+    elif not name_data.isalpha():
+        print("Please enter a name only containing letters.")
+        return False
+
+    else:
+        return True
 
 
 def update_name_guest_feedback_worksheet(name):
