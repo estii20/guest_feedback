@@ -390,7 +390,7 @@ def get_special_offers():
 
         data_str = input("Enter guest special offer option here: \n")
 
-        special_offers_data = data_str.split(" ")
+        special_offers_data = data_str.strip()
 
         if validate_special_offers(special_offers_data):
             print("It is valid!")
@@ -404,9 +404,16 @@ def validate_special_offers(input):
     Raises action from user if data not entered
     in correct format either yes or no.
     """
+    user_input = input("Answer yes/no: ")
+    yes_choices = ['yes', 'y']
+    no_choices = ['no', 'n']
     try:
-        if input == validate_special_offers:
-            print("Thanks\n")
+        if user_input.lower() in yes_choices:
+            print("User typed yes \n")
+        elif user_input.lower() in no_choices:
+            print("User typed no\n")
+        else:
+            print("Type yes or no")
     except ValueError:
         print("Format incorrect, please try again with yes or no\n")
         return False
