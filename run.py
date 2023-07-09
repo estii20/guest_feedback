@@ -217,6 +217,7 @@ def update_front_desk_score_guest_feedback_worksheet(front_desk):
 
 
 front_desk = get_front_desk_score()
+front_desk_data = [int(num) for num in front_desk]
 update_front_desk_score_guest_feedback_worksheet(front_desk)
 
 
@@ -270,6 +271,7 @@ def update_restaurant_score_guest_feedback_worksheet(restaurant):
 
 
 restaurant = get_restaurant_score()
+restaurant_data = [int(num) for num in restaurant]
 update_restaurant_score_guest_feedback_worksheet(restaurant)
 
 
@@ -323,6 +325,7 @@ def update_spa_score_guest_feedback_worksheet(spa):
 
 
 spa = get_spa_score()
+spa_data = [int(num) for num in spa]
 update_spa_score_guest_feedback_worksheet(spa)
 
 
@@ -376,6 +379,7 @@ def update_hotel_room_score_guest_feedback_worksheet(hotel_room):
 
 
 hotel_room = get_hotel_room_score()
+hotel_room_data = [int(num) for num in hotel_room]
 update_hotel_room_score_guest_feedback_worksheet(hotel_room)
 
 
