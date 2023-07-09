@@ -3,11 +3,12 @@
 import gspread
 from google.oauth2.service_account import Credentials
 # For access to the dataframes function
-import pandas as pd
+# import pandas as pd
 # For access to mean function
-import numpy as np
+# import numpy as np
 # To print to the terminal
-from pprint import pprint
+# from pprint import pprint
+import getpass
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -43,7 +44,7 @@ def main():
     while True:
         # 1. Ask for input from the admin
         menu_choice = input("Enter response: \n").strip()
-        view_responses = input("Viewing responses...\n")
+        view_responses = input("Viewing responses...\n").strip()
         # 2. Check if the input violates the criteria 1 or 2
         if menu_choice not in ["1", "2"]:
             print("Please enter one of the choices above.")
