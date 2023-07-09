@@ -9,6 +9,7 @@ from google.oauth2.service_account import Credentials
 # To print to the terminal
 # from pprint import pprint
 import getpass
+import re
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -81,19 +82,23 @@ def get_name_data():
     return name_data
 
 
-def validate_name(name_data):
+def validate_name(input):
     # Raises action from user if name not entered
     # in correct format.
-    if len(name_data) < 2:
-        print("Please enter a name that is at least 2 characters long.")
-        return False
+    try:
+        if len(input) < 2:
+            print("Please enter a name that is at least 2 characters long.")
+            return False
 
-    elif not name_data.isalpha():
-        print("Please enter a name only containing letters.")
-        return False
+        else:
+            if not input.isalpha():
+                print("Please enter a name only containing letters.")
+                return False
 
-    else:
-        return True
+    except ValueError as e:
+        print(f'Invalid data: {e}, please try again.\n')
+        return False
+    return True
 
 
 def update_name_guest_feedback_worksheet(name):
@@ -122,7 +127,7 @@ def get_email_data():
 
         data_str = input("Enter guest email here: \n")
 
-        email_data = data_str.split("@")
+        email_data = data_str.strip()
 
         if validate_email(email_data):
             print("Email is valid!")
@@ -137,12 +142,13 @@ def validate_email(input):
     in correct format.
     """
     try:
-        if input == validate_email:
-            print("Thanks\n")
-    except ValueError:
-        print("Enter valid email e.g.joe.blogs@google.com, please try again\n")
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            raise ValueError(
+                "Enter valid email please try again\n"
+                    )
+    except ValueError as e:
+        print(f'Invalid data: {e}, please try again.\n')
         return False
-
     return True
 
 
@@ -172,7 +178,7 @@ def get_front_desk_score():
 
         data_str = input("Enter guest front desk score here: \n")
 
-        front_desk_data = data_str.split(" ")
+        front_desk_data = data_str.strip()
 
         if validate_front_desk_score(front_desk_data):
             print("Score is valid!")
