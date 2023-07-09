@@ -340,7 +340,7 @@ def get_hotel_room_score():
 
         data_str = input("Enter guest hotel room score here: \n")
 
-        hotel_room_data = data_str.split(" ")
+        hotel_room_data = data_str.strip(" ")
 
         if validate_hotel_room_score(hotel_room_data):
             print("Score is valid!")
@@ -440,6 +440,42 @@ special_offers = get_special_offers()
 update_special_offers_guest_feedback_worksheet(special_offers)
 
 
+def view_responses():
+    """
+    Get guest hotel room score input from the user until
+    score data entered correctly.
+    """
+    while True:
+        print("Please enter an access code: \n")
+        print("Example: **** \n")
+
+        data_str = input("Access code: \n")
+
+        view_responses = data_str.strip()
+
+        if validate_view_responses(view_responses):
+            print("Code is valid!")
+            break
+
+    return view_responses
+
+
+def validate_view_responses(values):
+    access_code = int(5, 7, 9, 4)
+
+    try:
+        [int(value) for value in values]
+        if not access_code:
+            raise ValueError(
+                print("A valid access code is required, try again please")
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
+
+
 def calculate_mean_score():
     """
     Calculate the mean score for each column front desk, restaurant, spa, room.
@@ -460,6 +496,13 @@ def calculate_mean_score():
 
 
 calculate_mean_score()
+
+
+def get_special_offer_email():
+    print('List of emails to receive special offers: \n')
+    special_offer_column = SHEET.worksheet("guest_feedback").get_all_values()
+    special_offer = special_offer_column
+    print("The emails are: " + special_offer)
 
 
 def main():
