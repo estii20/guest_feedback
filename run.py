@@ -293,16 +293,19 @@ def get_spa_score():
     return spa_data
 
 
-def validate_spa_score(input):
+def validate_spa_score(values):
     """
     Raises action from user if score not entered
     in correct format.
     """
     try:
-        if input == validate_spa_score:
-            print("Thanks\n")
-    except ValueError:
-        print("Score format incorrect, please try again\n")
+        [int(value) for value in values]
+        if not range(0, 6):
+            raise ValueError(
+                print("A value between 1 - 5 required, try again please")
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
         return False
 
     return True
@@ -343,16 +346,19 @@ def get_hotel_room_score():
     return hotel_room_data
 
 
-def validate_hotel_room_score(input):
+def validate_hotel_room_score(values):
     """
     Raises action from user if score not entered
     in correct format.
     """
     try:
-        if input == validate_hotel_room_score:
-            print("Thanks\n")
-    except ValueError:
-        print("Score format incorrect, please try again\n")
+        [int(value) for value in values]
+        if not range(0, 6):
+            raise ValueError(
+                print("A value between 1 - 5 required, try again please")
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
         return False
 
     return True
