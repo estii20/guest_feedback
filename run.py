@@ -6,9 +6,7 @@ from google.oauth2.service_account import Credentials
 # import pandas as pd
 # For access to mean function
 # import numpy as np
-# To print to the terminal
-# from pprint import pprint
-import getpass
+# For matching the email format with the input
 import re
 
 SCOPE = [
@@ -71,9 +69,10 @@ def get_name_data():
         print("Please enter guest name.\n")
         print("Example: Joe Blogs\n")
 
-        data_str = input("Enter guest first name, space, last name here: \n")
+        name_str = input("Enter guest first name, space, last name here: \n")
+        print(f"The name provided is {name_str}")
 
-        name_data = data_str.strip()
+        name_data = name_str.strip()
 
         if validate_name(name_data):
             print("Name is valid!")
@@ -232,7 +231,7 @@ def get_restaurant_score():
 
         data_str = input("Enter guest restaurant score here: \n")
 
-        restaurant_data = data_str.split(" ")
+        restaurant_data = data_str.strip()
 
         if validate_restaurant_score(restaurant_data):
             print("Score is valid!")
@@ -286,7 +285,7 @@ def get_spa_score():
 
         data_str = input("Enter guest spa score here: \n")
 
-        spa_data = data_str.split(" ")
+        spa_data = data_str.strip()
 
         if validate_spa_score(spa_data):
             print("Score is valid!")
@@ -340,7 +339,7 @@ def get_hotel_room_score():
 
         data_str = input("Enter guest hotel room score here: \n")
 
-        hotel_room_data = data_str.strip(" ")
+        hotel_room_data = data_str.strip()
 
         if validate_hotel_room_score(hotel_room_data):
             print("Score is valid!")
