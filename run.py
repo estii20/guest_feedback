@@ -82,20 +82,25 @@ def get_name_data():
 
 
 def validate_name(input):
-    # Raises action from user if name not entered
-    # in correct format.
+    """
+    Raises action from user if name not entered
+    is not atleast 2 characters, and is not letters
+    it raises a ValueError
+    """
     try:
         if len(input) < 2:
-            print("Please enter a name that is at least 2 characters long.")
-            return False
+            raise ValueError(
+                "Please enter a name that is at least 2 characters long."
+                )
 
         else:
             if not input.isalpha():
-                print("Please enter a name only containing letters.")
-                return False
+                raise ValueError(
+                    "Please enter a name only containing letters"
+                    )
 
     except ValueError as e:
-        print(f'Invalid data: {e}, please try again.\n')
+        print(f'Invalid name: {e}, please try again.\n')
         return False
     return True
 
