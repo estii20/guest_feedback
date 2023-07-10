@@ -3,9 +3,9 @@
 import gspread
 from google.oauth2.service_account import Credentials
 # For access to the dataframes function
-# import pandas as pd
+import pandas as pd
 # For access to mean function
-# import numpy as np
+import numpy as np
 # For matching the email format with the input a RegEx pattern
 import re
 
@@ -66,19 +66,19 @@ def validate_name(input):
     return True
 
 
-def update_name_guest_feedback_worksheet(name_input):
+def update_name_guest_feedback_worksheet(name):
     """
     Update guest feedback worksheet,
     add new row with the name data provided
     """
     print("Updating name of guest feedback worksheet...\n")
-    feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(name_input)
+    feedback = SHEET.worksheet("feedback")
+    feedback.append_row([name])
     print("Name data updated successfully.\n")
 
 
-name_input = get_name_input()
-update_name_guest_feedback_worksheet(name_input)
+name = get_name_input()
+update_name_guest_feedback_worksheet(name)
 
 
 def get_email_data():
@@ -107,7 +107,7 @@ def validate_email(input):
     in correct format.
     """
     try:
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", input):
             raise ValueError(
                 "Enter valid email please try again\n"
                     )
@@ -124,7 +124,7 @@ def update_email_guest_feedback_worksheet(email):
     """
     print("Updating email of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(email)
+    feedback_worksheet.append_row([email])
     print("Email data updated successfully.\n")
 
 
@@ -177,7 +177,7 @@ def update_front_desk_score_guest_feedback_worksheet(front_desk):
     """
     print("Updating score of front desk of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(front_desk)
+    feedback_worksheet.append_row([front_desk])
     print("Front desk score updated successfully.\n")
 
 
@@ -231,7 +231,7 @@ def update_restaurant_score_guest_feedback_worksheet(restaurant):
     """
     print("Updating score of restaurant of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(restaurant)
+    feedback_worksheet.append_row([restaurant])
     print("Restaurant score updated successfully.\n")
 
 
@@ -285,7 +285,7 @@ def update_spa_score_guest_feedback_worksheet(spa):
     """
     print("Updating score of spa of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(spa)
+    feedback_worksheet.append_row([spa])
     print("Spa score updated successfully.\n")
 
 
@@ -339,7 +339,7 @@ def update_hotel_room_score_guest_feedback_worksheet(hotel_room):
     """
     print("Updating score of hotel room of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(hotel_room)
+    feedback_worksheet.append_row([hotel_room])
     print("Hotel room score updated successfully.\n")
 
 
@@ -368,7 +368,7 @@ def get_special_offers():
     return special_offers_data
 
 
-def validate_special_offers(input):
+def validate_special_offers(user_input):
     """
     Raises action from user if data not entered
     in correct format either yes or no.
@@ -379,10 +379,9 @@ def validate_special_offers(input):
     try:
         if user_input.lower() in yes_choices:
             print("User typed yes \n")
-        elif user_input.lower() in no_choices:
-            print("User typed no\n")
         else:
-            print("Type yes or no")
+            user_input.lower() in no_choices
+            print("User typed no\n")
     except ValueError:
         print("Format incorrect, please try again with yes or no\n")
         return False
@@ -397,7 +396,7 @@ def update_special_offers_guest_feedback_worksheet(special_offers):
     """
     print("Updating special offer of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(special_offers)
+    feedback_worksheet.append_row([special_offers])
     print("Special offers updated successfully.\n")
 
 
@@ -410,17 +409,17 @@ def calculate_mean_score():
     Calculate the mean score for each column front desk, restaurant, spa, room.
     """
     print("Calculating mean front desk score...\n")
-    front_desk_column = SHEET.worksheet("guest_feedback").get_all_values()
-    front_desk_mean = front_desk_column
+    front_desk_column = SHEET.worksheet("feedback").get_all_values()
+    front_desk_mean = np.average(front_desk_column)
     print("Mean average of front desk score is: " + front_desk_mean)
-    restaurant_column = SHEET.worksheet("guest_feedback").get_all_values()
-    restaurant_mean = restaurant_column
+    restaurant_column = SHEET.worksheet("feedback").get_all_values()
+    restaurant_mean = np.average(restaurant_column)
     print("Mean average of restaurant score is: " + restaurant_mean)
-    spa_column = SHEET.worksheet("guest_feedback").get_all_values()
-    spa_mean = spa_column
+    spa_column = SHEET.worksheet("feedback").get_all_values()
+    spa_mean = np.average(spa_column)
     print("Mean average of spa score is: " + spa_mean)
-    room_column = SHEET.worksheet("guest_feedback").get_all_values()
-    room_mean = room_column
+    room_column = SHEET.worksheet("feedback").get_all_values()
+    room_mean = np.average(room_column)
     print("Mean average of spa score is: " + room_mean)
 
 
@@ -429,7 +428,7 @@ calculate_mean_score()
 
 def get_special_offer_email():
     print('List of emails to receive special offers: \n')
-    special_offer_column = SHEET.worksheet("guest_feedback").get_all_values()
+    special_offer_column = SHEET.worksheet("feedback").get_all_values()
     special_offer = special_offer_column
     print("The emails are: " + special_offer)
 
