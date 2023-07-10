@@ -6,7 +6,7 @@ from google.oauth2.service_account import Credentials
 # import pandas as pd
 # For access to mean function
 # import numpy as np
-# For matching the email format with the input
+# For matching the email format with the input a RegEx pattern
 import re
 
 SCOPE = [
@@ -21,46 +21,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
 
-def main_menu():
-    """
-    Program starts, main menu is displayed.
-    Main menu has two options.
-    1. Enter responses
-        - get and validate data from user
-        -- name, email, score for each (front desk, restaurant, room, spa)
-        --- rating for each on scale 1-5
-    2. View responses
-        - admin enters access code (hardcoded password)
-        -- later improvement: maintain a list of access codes
-        --- admin views data average score for each e.g. front desk
-        ---- admin gets guests who wish to receive special offers
-        """
-    print("Welcome")
-    print("What would you like to do?\n")
-    print("1. Enter responses \n")
-    print("2. View responses \n")
-
-    while True:
-        # 1. Ask for input from the admin
-        menu_choice = input("Enter response: \n").strip()
-        view_responses = input("Viewing responses...\n").strip()
-        # 2. Check if the input violates the criteria 1 or 2
-        if menu_choice not in ["1", "2"]:
-            print("Please enter one of the choices above.")
-            continue
-        else:
-            break
-
-        """
-        # after validation, user can input choice
-        """
-        if menu_choice == "1":
-            get_name_data()
-        else:
-            view_responses()
-
-
-def get_name_data():
+def get_name_input():
     """
     Get guest name input from the user until
     name data entered correctly.
@@ -72,13 +33,13 @@ def get_name_data():
         name_str = input("Enter guest first name, space, last name here: \n")
         print(f"The name provided is {name_str}")
 
-        name_data = name_str.strip()
+        name_input = name_str.strip()
 
-        if validate_name(name_data):
+        if validate_name(name_input):
             print("Name is valid!")
             break
 
-    return name_data
+    return name_input
 
 
 def validate_name(input):
@@ -105,19 +66,19 @@ def validate_name(input):
     return True
 
 
-def update_name_guest_feedback_worksheet(name):
+def update_name_guest_feedback_worksheet(name_input):
     """
     Update guest feedback worksheet,
     add new row with the name data provided
     """
     print("Updating name of guest feedback worksheet...\n")
     feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(name)
+    feedback_worksheet.append_row(name_input)
     print("Name data updated successfully.\n")
 
 
-name = get_name_data()
-update_name_guest_feedback_worksheet(name)
+name_input = get_name_input()
+update_name_guest_feedback_worksheet(name_input)
 
 
 def get_email_data():
@@ -444,42 +405,6 @@ special_offers = get_special_offers()
 update_special_offers_guest_feedback_worksheet(special_offers)
 
 
-def view_responses():
-    """
-    Get guest hotel room score input from the user until
-    score data entered correctly.
-    """
-    while True:
-        print("Please enter an access code: \n")
-        print("Example: **** \n")
-
-        data_str = input("Access code: \n")
-
-        view_responses = data_str.strip()
-
-        if validate_view_responses(view_responses):
-            print("Code is valid!")
-            break
-
-    return view_responses
-
-
-def validate_view_responses(values):
-    access_code = int(5, 7, 9, 4)
-
-    try:
-        [int(value) for value in values]
-        if not access_code:
-            raise ValueError(
-                print("A valid access code is required, try again please")
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
-
-
 def calculate_mean_score():
     """
     Calculate the mean score for each column front desk, restaurant, spa, room.
@@ -509,6 +434,89 @@ def get_special_offer_email():
     print("The emails are: " + special_offer)
 
 
+get_special_offer_email()
+
+
+def enter_responses():
+    """
+    Choice 1 to enter data to the spreadsheet
+    """
+    print("Choice 1: Enter guest responses \n")
+
+
+def view_responses():
+    """
+    Get access code from the user
+    """
+    while True:
+        print("Please enter an access code: \n")
+        print("Example: **** \n")
+
+        data_str = input("Access code: \n")
+
+        view_responses = data_str.strip()
+
+        if validate_view_responses(view_responses):
+            print("Code is valid!")
+            break
+
+
+def validate_view_responses(values):
+    """
+    Validates access code from the user
+    """
+    access_code = "5", "7", "9", "4"
+
+    try:
+        [int(value) for value in values]
+        if not access_code:
+            raise ValueError(
+                print("A valid access code is required, try again please")
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
+
+
 def main():
+    """
+    Program starts, main menu is displayed.
+    Main menu has two options.
+    1. Enter responses
+        - get and validate data from user
+        -- name, email, score for each (front desk, restaurant, room, spa)
+        --- rating for each on scale 1-5
+    2. View responses
+        - admin enters access code (hardcoded password)
+        -- later improvement: maintain a list of access codes
+        --- admin views data average score for each e.g. front desk
+        ---- admin gets guests emails who wish to receive special offers
+        """
     print('Welcome to the Guest Feedback Form.\n')
-    main_menu()
+
+    print("What would you like to do?")
+    print("1. Enter responses")
+    print("2. View responses")
+
+    while True:
+        # 1. Ask for input.
+        menu_choice = input("Enter choice").strip()
+
+        # 2. Check if the input violates any of your criteria.
+        if menu_choice not in ["1", "2"]:
+            print("Please enter one of the choices above.")
+            continue
+        # Eventually, exit the loop and use the input
+        break
+
+    # after validation, use the input:
+    if menu_choice == "1":
+        enter_responses()
+
+    else:
+        view_responses()
+
+
+main()
