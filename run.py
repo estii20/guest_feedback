@@ -30,7 +30,7 @@ def get_name_input():
         print("Please enter guest name.\n")
         print("Example: Joe Blogs\n")
 
-        name_str = input("Enter guest first name, space, last name here: \n")
+        name_str = input("Enter guest name: \n")
         print(f"The name provided is {name_str}")
 
         name_input = name_str.strip()
@@ -45,21 +45,13 @@ def get_name_input():
 def validate_name(input):
     """
     Raises action from user if name not entered
-    is not atleast 2 characters, and is not letters
-    it raises a ValueError
+    is not atleast 2 characters
     """
     try:
         if len(input) < 2:
             raise ValueError(
                 "Please enter a name that is at least 2 characters long."
                 )
-
-        else:
-            if not input.isalpha():
-                raise ValueError(
-                    "Please enter a name only containing letters"
-                    )
-
     except ValueError as e:
         print(f'Invalid name: {e}, please try again.\n')
         return False
@@ -129,7 +121,7 @@ def validate_front_desk_score(values):
     """
     try:
         [int(value) for value in values]
-        if not ["1", "2", "3", "4", "5"]:
+        if not range(1, 5):
             raise ValueError(
                 print("A value between 1 - 5 required, try again please")
             )
@@ -167,7 +159,7 @@ def validate_restaurant_score(values):
     """
     try:
         [int(value) for value in values]
-        if not ["1", "2", "3", "4", "5"]:
+        if not range(1, 5):
             raise ValueError(
                 print("A value between 1 - 5 required, try again please")
             )
@@ -205,7 +197,7 @@ def validate_spa_score(values):
     """
     try:
         [int(value) for value in values]
-        if not ["1", "2", "3", "4", "5"]:
+        if not range(1, 5):
             raise ValueError(
                 print("A value between 1 - 5 required, try again please")
             )
@@ -243,7 +235,7 @@ def validate_hotel_room_score(values):
     """
     try:
         [int(value) for value in values]
-        if not ["1", "2", "3", "4", "5"]:
+        if not range(1, 5):
             raise ValueError(
                 print("A value between 1 - 5 required, try again please")
             )
@@ -294,6 +286,44 @@ def validate_special_offers(user_input):
     return True
 
 
+def update_feedback_worksheet(data):
+    """
+    Given a list of cell values, add a row to the Google sheet with the data.
+
+    Args:
+        row_data: List if str - A list of values for each cell in the row
+        for name, email, front desk, restaurant, spa, room and special offers
+    """
+    print("Updating guest feedback worksheet...\n")
+    feedback_worksheet = SHEET.worksheet("feedback")
+    feedback_worksheet.append_row(data)
+    print("Data updated successfully.\n")
+
+    name = get_name_input()
+
+    email = get_email_data()
+
+    front_desk = get_front_desk_score()
+    front_desk = [int(num) for num in front_desk]
+
+    restaurant = get_restaurant_score()
+    restaurant = [int(num) for num in restaurant]
+
+    spa = get_spa_score()
+    spa = [int(num) for num in spa]
+
+    hotel_room = get_hotel_room_score()
+    hotel_room = [int(num) for num in hotel_room]
+
+    special_offers = get_special_offers()
+
+    data = (
+        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
+        )
+
+    update_feedback_worksheet(data)
+
+
 def enter_responses():
     """
     Choice 1 to enter data to the spreadsheet
@@ -318,49 +348,10 @@ def enter_responses():
 
     special_offers = get_special_offers()
 
-    row_data = (
+    data = (
         [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
-    )
-    feedback_worksheet = SHEET.worksheet("feedback")
-    update_feedback_worksheet(row_data, feedback_worksheet)
-
-
-def update_feedback_worksheet(row_data, feedback_worksheet):
-    """
-    Given a list of cell values, add a row to the Google sheet with the data.
-
-    Args:
-        row_data: List if str - A list of values for each cell in the row
-        for name, email, front desk, restaurant, spa, room and special offers
-    """
-    print("Updating guest feedback worksheet...\n")
-
-    name = get_name_input()
-
-    email = get_email_data()
-
-    front_desk = get_front_desk_score()
-    front_desk = [int(num) for num in front_desk]
-
-    restaurant = get_restaurant_score()
-    restaurant = [int(num) for num in restaurant]
-
-    spa = get_spa_score()
-    spa = [int(num) for num in spa]
-
-    hotel_room = get_hotel_room_score()
-    hotel_room = [int(num) for num in hotel_room]
-
-    special_offers = get_special_offers()
-
-    row_data = (
-        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
-    )
-    feedback_worksheet = SHEET.worksheet("feedback")
-    feedback_worksheet.append_row(row_data, "feedback")
-    print("Data updated successfully.\n")
-
-    enter_responses()
+        )
+    update_feedback_worksheet(data)
 
 
 def view_responses():
@@ -436,3 +427,6 @@ def main():
 
     else:
         view_responses()
+
+
+main()
