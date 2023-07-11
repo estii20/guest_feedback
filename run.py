@@ -77,10 +77,6 @@ def update_name_guest_feedback_worksheet(name):
     print("Name data updated successfully.\n")
 
 
-name = get_name_input()
-update_name_guest_feedback_worksheet(name)
-
-
 def get_email_data():
     """
     Get guest email input from the user until
@@ -126,10 +122,6 @@ def update_email_guest_feedback_worksheet(email):
     feedback_worksheet = SHEET.worksheet("feedback")
     feedback_worksheet.append_row([email])
     print("Email data updated successfully.\n")
-
-
-email = get_email_data()
-update_email_guest_feedback_worksheet(email)
 
 
 def get_front_desk_score():
@@ -181,11 +173,6 @@ def update_front_desk_score_guest_feedback_worksheet(front_desk):
     print("Front desk score updated successfully.\n")
 
 
-front_desk = get_front_desk_score()
-front_desk_data = [int(num) for num in front_desk]
-update_front_desk_score_guest_feedback_worksheet(front_desk)
-
-
 def get_restaurant_score():
     """
     Get guest restaurant score input from the user until
@@ -233,11 +220,6 @@ def update_restaurant_score_guest_feedback_worksheet(restaurant):
     feedback_worksheet = SHEET.worksheet("feedback")
     feedback_worksheet.append_row([restaurant])
     print("Restaurant score updated successfully.\n")
-
-
-restaurant = get_restaurant_score()
-restaurant_data = [int(num) for num in restaurant]
-update_restaurant_score_guest_feedback_worksheet(restaurant)
 
 
 def get_spa_score():
@@ -289,11 +271,6 @@ def update_spa_score_guest_feedback_worksheet(spa):
     print("Spa score updated successfully.\n")
 
 
-spa = get_spa_score()
-spa_data = [int(num) for num in spa]
-update_spa_score_guest_feedback_worksheet(spa)
-
-
 def get_hotel_room_score():
     """
     Get guest hotel room score input from the user until
@@ -341,11 +318,6 @@ def update_hotel_room_score_guest_feedback_worksheet(hotel_room):
     feedback_worksheet = SHEET.worksheet("feedback")
     feedback_worksheet.append_row([hotel_room])
     print("Hotel room score updated successfully.\n")
-
-
-hotel_room = get_hotel_room_score()
-hotel_room_data = [int(num) for num in hotel_room]
-update_hotel_room_score_guest_feedback_worksheet(hotel_room)
 
 
 def get_special_offers():
@@ -400,10 +372,6 @@ def update_special_offers_guest_feedback_worksheet(special_offers):
     print("Special offers updated successfully.\n")
 
 
-special_offers = get_special_offers()
-update_special_offers_guest_feedback_worksheet(special_offers)
-
-
 def calculate_mean_score():
     """
     Calculate the mean score for each column front desk, restaurant, spa, room.
@@ -441,6 +409,31 @@ def enter_responses():
     Choice 1 to enter data to the spreadsheet
     """
     print("Choice 1: Enter guest responses \n")
+
+    name = get_name_input()
+    update_name_guest_feedback_worksheet(name)
+
+    email = get_email_data()
+    update_email_guest_feedback_worksheet(email)
+
+    front_desk = get_front_desk_score()
+    front_desk = [int(num) for num in front_desk]
+    update_front_desk_score_guest_feedback_worksheet(front_desk)
+
+    restaurant = get_restaurant_score()
+    restaurant = [int(num) for num in restaurant]
+    update_restaurant_score_guest_feedback_worksheet(restaurant)
+
+    spa = get_spa_score()
+    spa = [int(num) for num in spa]
+    update_spa_score_guest_feedback_worksheet(spa)
+
+    hotel_room = get_hotel_room_score()
+    hotel_room = [int(num) for num in hotel_room]
+    update_hotel_room_score_guest_feedback_worksheet(hotel_room)
+
+    special_offers = get_special_offers()
+    update_special_offers_guest_feedback_worksheet(special_offers)
 
 
 def view_responses():
