@@ -3,11 +3,12 @@
 import gspread
 from google.oauth2.service_account import Credentials
 # For access to the dataframes function
-# import pandas as pd
+import pandas as pd
 # For access to mean function
-# import numpy as np
+import numpy as np
 # For matching the email format with the input a RegEx pattern
 import re
+import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -312,6 +313,130 @@ def enter_responses():
     update_feedback_worksheet(data)
 
 
+def get_column_front_desk():
+    """
+    Collects a column of values from feedback worksheet, collecting
+    the entries for the front desk score and returns the data
+    """
+    front_desk = SHEET.worksheet("feedback")
+
+    front_desk = []
+    for ind in range(0, 3):
+        front_desk = front_desk.col_values(ind)
+
+    return front_desk
+
+
+def calculate_front_desk_mean_score(values):
+    """
+    Calculate the mean score for the front desk
+    """
+    print("Calculating front desk mean score...\n")
+    print("Mean front desk score is: \n")
+
+    front_desk_mean_score = []
+
+    for column in values:
+        int_column = [int(num) for num in column]
+        front_desk_mean = sum(int_column) / len(int_column)
+        front_desk_mean_score = (round(front_desk_mean))
+
+    return front_desk_mean_score
+
+
+def get_column_restaurant():
+    """
+    Collects a column of values from feedback worksheet, collecting
+    the entries for the restaurant score and returns the data
+    """
+    restaurant = SHEET.worksheet("feedback")
+
+    columns = []
+    for ind in range(0, 4):
+        columns = restaurant.col_values(ind)
+
+    return columns
+
+
+def calculate_restaurant_mean_score(values):
+    """
+    Calculate the mean score for the restaurant
+    """
+    print("Calculating restaurant mean score...\n")
+    print("Mean restaurant score is: \n")
+
+    restaurant_mean_score = []
+
+    for column in values:
+        int_column = [int(num) for num in column]
+        restaurant_mean = sum(int_column) / len(int_column)
+        restaurant_mean_score = (round(restaurant_mean))
+
+    return restaurant_mean_score
+
+
+def get_column_spa():
+    """
+    Collects a column of values from feedback worksheet, collecting
+    the entries for the spa score and returns the data
+    """
+    spa = SHEET.worksheet("feedback")
+
+    columns = []
+    for ind in range(0, 5):
+        columns = spa.col_values(ind)
+
+    return columns
+
+
+def calculate_spa_mean_score(values):
+    """
+    Calculate the mean score for the spa
+    """
+    print("Calculating spa mean score...\n")
+    print("Mean spa score is: \n")
+
+    spa_mean_score = []
+
+    for column in values:
+        int_column = [int(num) for num in column]
+        spa_mean = sum(int_column) / len(int_column)
+        spa_mean_score = (round(spa_mean))
+
+    return spa_mean_score
+
+
+def get_column_hotel_room():
+    """
+    Collects a column of values from feedback worksheet, collecting
+    the entries for the hotel room score and returns the data
+    """
+    hotel_room = SHEET.worksheet("feedback")
+
+    columns = []
+    for ind in range(0, 6):
+        columns = hotel_room.col_values(ind)
+
+    return columns
+
+
+def calculate_hotel_room_mean_score(values):
+    """
+    Calculate the mean score for the hotel room
+    """
+    print("Calculating hotel room mean score...\n")
+    print("Mean hotel room score is: \n")
+
+    hotel_room_mean_score = []
+
+    for column in values:
+        int_column = [int(num) for num in column]
+        hotel_room_mean = sum(int_column) / len(int_column)
+        hotel_room_mean_score = (round(hotel_room_mean))
+
+    return hotel_room_mean_score
+
+
 def view_responses():
     """
     Get access code from the user
@@ -327,6 +452,24 @@ def view_responses():
         if validate_view_responses(view_responses):
             print("Code is valid!")
             break
+
+    values = []
+
+    get_column_front_desk()
+
+    calculate_front_desk_mean_score(values)
+
+    get_column_restaurant()
+
+    calculate_restaurant_mean_score(values)
+
+    get_column_spa()
+
+    calculate_spa_mean_score(values)
+
+    calculate_hotel_room_mean_score(values)
+
+    calculate_hotel_room_mean_score(values)
 
 
 def validate_view_responses(values):
