@@ -107,29 +107,11 @@ def get_front_desk_score():
 
         front_desk_data = data_str.strip()
 
-        if validate_front_desk_score(front_desk_data):
+        if validate_score(front_desk_data):
             print("Score is valid!")
             break
 
     return front_desk_data
-
-
-def validate_front_desk_score(values):
-    """
-    Raises action from user if score not entered
-    in correct format.
-    """
-    try:
-        [int(value) for value in values]
-        if not range(1, 5):
-            raise ValueError(
-                print("A value between 1 - 5 required, try again please")
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
 
 
 def get_restaurant_score():
@@ -145,29 +127,11 @@ def get_restaurant_score():
 
         restaurant_data = data_str.strip()
 
-        if validate_restaurant_score(restaurant_data):
+        if validate_score(restaurant_data):
             print("Score is valid!")
             break
 
     return restaurant_data
-
-
-def validate_restaurant_score(values):
-    """
-    Raises action from user if score not entered
-    in correct format.
-    """
-    try:
-        [int(value) for value in values]
-        if not range(1, 5):
-            raise ValueError(
-                print("A value between 1 - 5 required, try again please")
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
 
 
 def get_spa_score():
@@ -183,29 +147,11 @@ def get_spa_score():
 
         spa_data = data_str.strip()
 
-        if validate_spa_score(spa_data):
+        if validate_score(spa_data):
             print("Score is valid!")
             break
 
     return spa_data
-
-
-def validate_spa_score(values):
-    """
-    Raises action from user if score not entered
-    in correct format.
-    """
-    try:
-        [int(value) for value in values]
-        if not range(1, 5):
-            raise ValueError(
-                print("A value between 1 - 5 required, try again please")
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
-
-    return True
 
 
 def get_hotel_room_score():
@@ -221,26 +167,26 @@ def get_hotel_room_score():
 
         hotel_room_data = data_str.strip()
 
-        if validate_hotel_room_score(hotel_room_data):
+        if validate_score(hotel_room_data):
             print("Score is valid!")
             break
 
     return hotel_room_data
 
 
-def validate_hotel_room_score(values):
+def validate_score(values):
     """
     Raises action from user if score not entered
     in correct format.
     """
     try:
         [int(value) for value in values]
-        if not range(1, 5):
+        if values not in ["1", "2", "3", "4", "5"]:
             raise ValueError(
                 print("A value between 1 - 5 required, try again please\n")
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError:
+        print("Invalid data, please try again.\n")
         return False
 
     return True
@@ -270,9 +216,6 @@ def validate_special_offers(input):
     Raises action from user if data not entered
     in correct format either yes or no.
     """
-    #user_input = input("Answer: \n")
-    #yes_choices = ['yes', 'y']
-    #no_choices = ['no', 'n']
     try:
         if input not in ["yes", "y", "no", "n", "Yes", "Y", "No", "N"]:
            raise ValueError(
