@@ -3,9 +3,9 @@
 import gspread
 from google.oauth2.service_account import Credentials
 # For access to the dataframes function
-import pandas as pd
+#import pandas as pd
 # For access to mean function
-import numpy as np
+#import numpy as np
 # For matching the email format with the input a RegEx pattern
 import re
 
@@ -86,10 +86,10 @@ def validate_email(input):
     try:
         if not re.match(r"[^@]+@[^@]+\.[^@]+", input):
             raise ValueError(
-                "Enter valid email please try again\n"
+                "Enter valid email, please try again\n"
                     )
     except ValueError as e:
-        print(f'Invalid data: {e}, please try again.\n')
+        print('Invalid data, please try again.\n')
         return False
     return True
 
@@ -237,7 +237,7 @@ def validate_hotel_room_score(values):
         [int(value) for value in values]
         if not range(1, 5):
             raise ValueError(
-                print("A value between 1 - 5 required, try again please")
+                print("A value between 1 - 5 required, try again please\n")
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
@@ -265,22 +265,21 @@ def get_special_offers():
     return special_offers_data
 
 
-def validate_special_offers(user_input):
+def validate_special_offers(input):
     """
     Raises action from user if data not entered
     in correct format either yes or no.
     """
-    user_input = input("Answer: \n")
-    yes_choices = ['yes', 'y']
-    no_choices = ['no', 'n']
+    #user_input = input("Answer: \n")
+    #yes_choices = ['yes', 'y']
+    #no_choices = ['no', 'n']
     try:
-        if user_input.lower() in yes_choices:
-            print("User typed yes \n")
-        else:
-            user_input.lower() in no_choices
-            print("User typed no\n")
-    except ValueError:
-        print("Format incorrect, please try again with yes or no\n")
+        if input not in ["yes", "y", "no", "n", "Yes", "Y", "No", "N"]:
+           raise ValueError(
+                print("yes or no required, try again please\n")
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
         return False
 
     return True
@@ -304,16 +303,16 @@ def update_feedback_worksheet(data):
     email = get_email_data()
 
     front_desk = get_front_desk_score()
-    front_desk = [int(num) for num in front_desk]
+    #front_desk = [int(num) for num in front_desk]
 
     restaurant = get_restaurant_score()
-    restaurant = [int(num) for num in restaurant]
+    #restaurant = [int(num) for num in restaurant]
 
     spa = get_spa_score()
-    spa = [int(num) for num in spa]
+    #spa = [int(num) for num in spa]
 
     hotel_room = get_hotel_room_score()
-    hotel_room = [int(num) for num in hotel_room]
+    #hotel_room = [int(num) for num in hotel_room]
 
     special_offers = get_special_offers()
 
@@ -335,16 +334,16 @@ def enter_responses():
     email = get_email_data()
 
     front_desk = get_front_desk_score()
-    front_desk = [int(num) for num in front_desk]
+    #front_desk = [int(num) for num in front_desk]
 
     restaurant = get_restaurant_score()
-    restaurant = [int(num) for num in restaurant]
+    #restaurant = [int(num) for num in restaurant]
 
     spa = get_spa_score()
-    spa = [int(num) for num in spa]
+    #spa = [int(num) for num in spa]
 
     hotel_room = get_hotel_room_score()
-    hotel_room = [int(num) for num in hotel_room]
+    #hotel_room = [int(num) for num in hotel_room]
 
     special_offers = get_special_offers()
 
