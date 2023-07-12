@@ -321,6 +321,7 @@ def get_column_front_desk():
     front_desk = SHEET.worksheet("feedback")
 
     front_desk = []
+
     for ind in range(0, 3):
         front_desk = front_desk.col_values(ind)
 
@@ -337,8 +338,8 @@ def calculate_front_desk_mean_score(values):
     front_desk_mean_score = []
 
     for column in values:
-        int_column = [int(num) for num in column]
-        front_desk_mean = sum(int_column) / len(int_column)
+        ront_desk_column = [int(num) for num in column]
+        front_desk_mean = sum(ront_desk_column) / len(ront_desk_column)
         front_desk_mean_score = (round(front_desk_mean))
 
     return front_desk_mean_score
@@ -351,11 +352,12 @@ def get_column_restaurant():
     """
     restaurant = SHEET.worksheet("feedback")
 
-    columns = []
-    for ind in range(0, 4):
-        columns = restaurant.col_values(ind)
+    restaurant_column = []
 
-    return columns
+    for ind in range(0, 4):
+        restaurant_column = restaurant.col_values(ind)
+
+    return restaurant_column
 
 
 def calculate_restaurant_mean_score(values):
@@ -367,9 +369,9 @@ def calculate_restaurant_mean_score(values):
 
     restaurant_mean_score = []
 
-    for column in values:
-        int_column = [int(num) for num in column]
-        restaurant_mean = sum(int_column) / len(int_column)
+    for restaurant_column in values:
+        restaurant_column = [int(num) for num in restaurant_column]
+        restaurant_mean = sum(restaurant_column) / len(restaurant_column)
         restaurant_mean_score = (round(restaurant_mean))
 
     return restaurant_mean_score
@@ -382,11 +384,12 @@ def get_column_spa():
     """
     spa = SHEET.worksheet("feedback")
 
-    columns = []
-    for ind in range(0, 5):
-        columns = spa.col_values(ind)
+    spa_column = []
 
-    return columns
+    for ind in range(0, 5):
+        spa_column = spa.col_values(ind)
+
+    return spa_column
 
 
 def calculate_spa_mean_score(values):
@@ -398,9 +401,9 @@ def calculate_spa_mean_score(values):
 
     spa_mean_score = []
 
-    for column in values:
-        int_column = [int(num) for num in column]
-        spa_mean = sum(int_column) / len(int_column)
+    for spa_column in values:
+        spa_column = [int(num) for num in spa_column]
+        spa_mean = sum(spa_column) / len(spa_column)
         spa_mean_score = (round(spa_mean))
 
     return spa_mean_score
@@ -413,11 +416,12 @@ def get_column_hotel_room():
     """
     hotel_room = SHEET.worksheet("feedback")
 
-    columns = []
-    for ind in range(0, 6):
-        columns = hotel_room.col_values(ind)
+    hotel_room_column = []
 
-    return columns
+    for ind in range(0, 6):
+        hotel_room_column = hotel_room.col_values(ind)
+
+    return hotel_room_column
 
 
 def calculate_hotel_room_mean_score(values):
@@ -429,12 +433,26 @@ def calculate_hotel_room_mean_score(values):
 
     hotel_room_mean_score = []
 
-    for column in values:
-        int_column = [int(num) for num in column]
-        hotel_room_mean = sum(int_column) / len(int_column)
+    for hotel_room_column in values:
+        hotel_room_column = [int(num) for num in hotel_room_column]
+        hotel_room_mean = sum(hotel_room_column) / len(hotel_room_column)
         hotel_room_mean_score = (round(hotel_room_mean))
 
     return hotel_room_mean_score
+
+
+def get_offers_yes(data):
+    """
+    """
+    offers_yes = SHEET.worksheet("feedback")
+
+    offers_yes_column = []
+
+    for offers_yes_column in range(0, 7):
+        if offers_yes == ["yes", "Y", "y", "YES"]:
+            return offers_yes_column
+        else:
+            continue
 
 
 def view_responses():
