@@ -443,6 +443,11 @@ def calculate_hotel_room_mean_score(values):
 
 def get_offers_yes(data):
     """
+    Filter the data to get all data with yes/YES or Y,y
+
+    Args:
+        data: List if str - Get data from the feedback sheet if yes/y/Y/YES
+        
     """
     offers_yes = SHEET.worksheet("feedback")
 
@@ -451,8 +456,29 @@ def get_offers_yes(data):
     for offers_yes_column in range(0, 7):
         if offers_yes == ["yes", "Y", "y", "YES"]:
             return offers_yes_column
-        else:
             continue
+        else:
+            get_column_front_desk()
+
+
+def update_special_offers_worksheet(offers_yes_column):
+    """
+    Update the special offers sheet with the data.
+
+    Args:
+        data: List if str - Add data to the special offers email sheet
+    """
+    print("Updating special offer worksheet...\n")
+    special_offer_worksheet = SHEET.worksheet("special_offer_worksheet")
+    special_offer_worksheet.append_row(data)
+    print("Data updated successfully.\n")
+
+
+def get_special_offers_info():
+    """
+    """
+    special_offers_email = SHEET.worksheet("special_offers_email")
+    print("Special offers to email to are: \n")
 
 
 def view_responses():
@@ -488,6 +514,10 @@ def view_responses():
     calculate_hotel_room_mean_score(values)
 
     calculate_hotel_room_mean_score(values)
+
+    update_special_offers_worksheet(offers_yes_column)
+
+    get_special_offers_info()
 
 
 def validate_view_responses(values):
