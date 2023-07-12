@@ -13,4 +13,23 @@ Also if the hotel department has a high score the staff in those departments can
 
 The Guest Feedback Form is currently paper based for the guests to complete upon check out. The form is short so that guests are not put off from completing the form. A hotel admin is then able to add the guest data to the terminal or with an access code view the guest data.
 
-![Guest Feedback Form Paper Version](assets/images/landscape.jpg "Image of Guest Feedback Form")
+## Portfolio Project 3
+
+![Hotel Guest Feedback Form]( "Image of Guest Feedback Terminal")
+
+- [Github Link](https://github.com/estii20/guest_feedback)
+
+- [Heroku Link](https://heroku.com)
+
+## Table of contents
+
+How it works
+2. Features
+3. Future Features
+4. Data Model
+5. Bugs
+6. Testing
+7. Deployment
+8. Credits
+9. Acknowledgements
+
