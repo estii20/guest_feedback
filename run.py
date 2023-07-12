@@ -3,9 +3,9 @@
 import gspread
 from google.oauth2.service_account import Credentials
 # For access to the dataframes function
-#import pandas as pd
+# import pandas as pd
 # For access to mean function
-#import numpy as np
+# import numpy as np
 # For matching the email format with the input a RegEx pattern
 import re
 
@@ -82,6 +82,13 @@ def validate_email(input):
     """
     Raises action from user if email not entered
     in correct format.
+
+    Args:
+        input: str - the email is input by the admin
+
+    Returns:
+        bool: True if the value matches the email format
+                False otherwise
     """
     try:
         if not re.match(r"[^@]+@[^@]+\.[^@]+", input):
@@ -89,7 +96,7 @@ def validate_email(input):
                 "Enter valid email, please try again\n"
                     )
     except ValueError as e:
-        print('Invalid data, please try again.\n')
+        print(f"Invalid data: {e}, please try again.\n")
         return False
     return True
 
@@ -178,6 +185,13 @@ def validate_score(values):
     """
     Raises action from user if score not entered
     in correct format.
+
+    Args:
+        values: str - the value 1 - 5 is input by the admin
+
+    Returns:
+        bool: True if the value matches the 1,2,3,4,5
+                False otherwise
     """
     try:
         [int(value) for value in values]
@@ -215,12 +229,19 @@ def validate_special_offers(input):
     """
     Raises action from user if data not entered
     in correct format either yes or no.
+
+    Args:
+        input: str - the data yes or no is input by the admin
+
+    Returns:
+        bool: True if the value matches the input
+                False otherwise
     """
     try:
         if input not in ["yes", "y", "no", "n", "Yes", "Y", "No", "N"]:
-           raise ValueError(
-                print("yes or no required, try again please\n")
-            )
+            raise ValueError(
+                    print("yes or no required, try again please\n")
+                )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -233,7 +254,7 @@ def update_feedback_worksheet(data):
     Given a list of cell values, add a row to the Google sheet with the data.
 
     Args:
-        row_data: List if str - A list of values for each cell in the row
+        data: List if str - A list of values for each cell in the row
         for name, email, front desk, restaurant, spa, room and special offers
     """
     print("Updating guest feedback worksheet...\n")
@@ -246,16 +267,12 @@ def update_feedback_worksheet(data):
     email = get_email_data()
 
     front_desk = get_front_desk_score()
-    #front_desk = [int(num) for num in front_desk]
 
     restaurant = get_restaurant_score()
-    #restaurant = [int(num) for num in restaurant]
 
     spa = get_spa_score()
-    #spa = [int(num) for num in spa]
 
     hotel_room = get_hotel_room_score()
-    #hotel_room = [int(num) for num in hotel_room]
 
     special_offers = get_special_offers()
 
@@ -269,6 +286,9 @@ def update_feedback_worksheet(data):
 def enter_responses():
     """
     Choice 1 to enter data to the spreadsheet
+    Runs the functions from choice 1
+    get name, get email, get scores, special offers
+    and the updates sheet
     """
     print("Choice 1: Enter guest responses \n")
 
@@ -277,16 +297,12 @@ def enter_responses():
     email = get_email_data()
 
     front_desk = get_front_desk_score()
-    #front_desk = [int(num) for num in front_desk]
 
     restaurant = get_restaurant_score()
-    #restaurant = [int(num) for num in restaurant]
 
     spa = get_spa_score()
-    #spa = [int(num) for num in spa]
 
     hotel_room = get_hotel_room_score()
-    #hotel_room = [int(num) for num in hotel_room]
 
     special_offers = get_special_offers()
 
@@ -316,6 +332,13 @@ def view_responses():
 def validate_view_responses(values):
     """
     Validates access code from the user
+
+    Args:
+        values: str - the code is input by the admin
+
+    Returns:
+        bool: True if the value matches the code
+                False otherwise
     """
     access_code = "5", "7", "9", "4"
 
@@ -336,16 +359,15 @@ def main():
     """
     Program starts, main menu is displayed.
     Main menu has two options.
-    1. Enter responses
-        - get and validate data from user
-        -- name, email, score for each (front desk, restaurant, room, spa)
-        --- rating for each on scale 1-5
+    1. Enter responses to get and validate data from the admin
+    such as name, email and score for each (front desk, restaurant, spa, room)
+    the rating for each on scale 1-5
+    (1 = Excellent, 2 = Good 3 = Satisfactory 5 = Poor)
     2. View responses
-        - admin enters access code (hardcoded password)
-        -- later improvement: maintain a list of access codes
-        --- admin views data average score for each e.g. front desk
-        ---- admin gets guests emails who wish to receive special offers
-        """
+    The admin enters access code (hardcoded password)
+    then the admin can view data average score for each e.g. front desk.
+    Also the admin can get guests emails who wish to receive special offers
+    """
     print('Welcome to the Guest Feedback Form.\n')
 
     print("What would you like to do?\n")
