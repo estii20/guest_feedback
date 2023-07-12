@@ -33,3 +33,22 @@ How it works
 8. Credits
 9. Acknowledgements
 
+### How it works
+
+The marketing department has designed a guest feedback form on paper to encourage guests to leave their scores for the hotel based on the range 1 = Excellent, 2 = Good 3 = Satisfactory 5 = Poor. 
+It is a simple form that collects data such as Guest Name, Guest Email, Guest Score for the Front Desk, Guest Score for the Restaurant, Guest Score for the spa and Guest Score for the Hotel Room. 
+Guests are also asked if they would like to receive special offers by email.
+The Hotel Admin inputs this data into the Guest Feedback Terminal. This data is shared through the google sheets API to the Guest Feedback Worksheet. From this worksheet there is the option to 1. Enter Responses or 2. View Responses
+
+## Features
+
+__Main Menu - 1. Enter Responses or 2. View Responses__
+
+The Enter Responses function gets and validates data from admin
+name, email, 
+score for each (front desk, restaurant, room, spa) with a rating for each on scale 1-5. 1 = Excellent, 2 = Good 3 = Satisfactory 5 = Poor
+Special offers yes or no
+The View Responses function
+Asks for a password to verify admin access. This is a hardcoded password.
+The admin provided they have given the correct password can then view the data average score for each e.g. front desk, restaurant, spa, hotel room.
+Also the admin can access the email addresses of the guests wishing to receive any special offers. This information can then be used by the marketing department to send out special offers emails.
