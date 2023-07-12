@@ -2,13 +2,8 @@
 # For authorisation for app access to gspread API
 import gspread
 from google.oauth2.service_account import Credentials
-# For access to the dataframes function
-import pandas as pd
-# For access to mean function
-import numpy as np
 # For matching the email format with the input a RegEx pattern
 import re
-import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -447,7 +442,7 @@ def get_offers_yes(data):
 
     Args:
         data: List if str - Get data from the feedback sheet if yes/y/Y/YES
-        
+
     """
     offers_yes = SHEET.worksheet("feedback")
 
