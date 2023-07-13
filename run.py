@@ -398,55 +398,6 @@ def calculate_hotel_room_mean_score():
     return hotel_room_mean_score_round
 
 
-def get_offers_yes(data):
-    """
-    Filter the data to get all data with yes or y
-
-    Args:
-        data: List if str - Get data from the feedback sheet if yes/y
-
-    """
-    offers_yes_column = []
-
-    offers_yes = SHEET.worksheet("feedback")
-    offers_yes_column = offers_yes.col_values(7)
-
-    if offers_yes_column.lower() == ["yes", "y"]:
-        return get_offers_yes(data)
-    else:
-        calculate_front_desk_mean_score()
-
-
-def update_special_offers_worksheet():
-    """
-    Update the special offers sheet with the data.
-
-    Args:
-        data: List if str - Add data to the special offers email sheet
-    """
-
-    data = []
-
-    print("Updating special offer worksheet...\n")
-    special_offer_worksheet = SHEET.worksheet("special_offers_email")
-    special_offer_worksheet.append_row(data)
-    print("Data updated successfully.\n")
-
-    return update_special_offers_worksheet()
-
-
-def get_special_offers_info():
-    """
-    Displays the special offers sheet with the data in ther terminal.
-    """
-
-    special_offers = SHEET.worksheet("special_offers_email")
-    special_offers = special_offers.get_all_records
-    print("Special offers to email to are: \n")
-
-    return get_special_offers_info()
-
-
 def view_responses():
     """
     Get access code from the user
@@ -471,12 +422,8 @@ def view_responses():
 
     calculate_hotel_room_mean_score()
 
-    update_special_offers_worksheet()
 
-    get_special_offers_info()
-
-
-def validate_view_responses(values):
+def validate_view_responses(input):
     """
     Validates access code from the user
 
@@ -487,11 +434,9 @@ def validate_view_responses(values):
         bool: True if the value matches the code
                 False otherwise
     """
-    access_code = "5", "7", "9", "4"
 
     try:
-        [int(value) for value in values]
-        if not access_code:
+        if input != "5794":
             raise ValueError(
                 print("A valid access code is required, try again please")
             )
@@ -550,6 +495,4 @@ def main():
 
 
 if __name__ == "__main__":
-    calculate_front_desk_mean_score()
     main()
-
