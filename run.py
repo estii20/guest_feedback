@@ -7,7 +7,6 @@ import re
 # For exit from the main menu
 import sys
 import pandas as pd
-import numpy as numpy
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -52,8 +51,8 @@ def validate_name(input):
             raise ValueError(
                 "Please enter a name that is at least 2 characters long."
                 )
-    except ValueError as e:
-        print(f'Invalid name: {e}, please try again.\n')
+    except ValueError:
+        print('Invalid name, please try again.\n')
         return False
     return True
 
@@ -95,8 +94,8 @@ def validate_email(input):
             raise ValueError(
                 "Enter valid email, please try again\n"
                     )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError:
+        print("Invalid data, please try again.\n")
         return False
     return True
 
@@ -241,8 +240,8 @@ def validate_special_offers(input):
             raise ValueError(
                     print("yes or no required, try again please\n")
                 )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError:
+        print("Invalid data, please try again.\n")
         return False
 
     return True
@@ -324,12 +323,10 @@ def calculate_front_desk_mean_score():
     )
 
     front_desk_mean_score = front_desk_df["front_desk"].mean(
-        axis=0, skipna=False
+        axis=0, skipna=False,
         )
 
-    front_desk_mean_score_round = front_desk_mean_score.round()
-
-    return front_desk_mean_score_round
+    print(front_desk_mean_score)
 
 
 def calculate_restaurant_mean_score():
@@ -349,9 +346,7 @@ def calculate_restaurant_mean_score():
         axis=0, skipna=False
         )
 
-    restaurant_mean_score_round = restaurant_mean_score.round()
-
-    return restaurant_mean_score_round
+    print(restaurant_mean_score)
 
 
 def calculate_spa_mean_score():
@@ -371,9 +366,7 @@ def calculate_spa_mean_score():
         axis=0, skipna=False
         )
 
-    spa_mean_score_round = spa_mean_score.round()
-
-    return spa_mean_score_round
+    print(spa_mean_score)
 
 
 def calculate_hotel_room_mean_score():
@@ -381,7 +374,6 @@ def calculate_hotel_room_mean_score():
     Calculate the mean score for the hotel room
     """
     print("Calculating hotel room mean score...\n")
-    print("Mean hotel room score is: \n")
 
     hotel_room_column = SHEET.worksheet("feedback").col_values(6)
 
@@ -393,9 +385,7 @@ def calculate_hotel_room_mean_score():
         axis=0, skipna=False
         )
 
-    hotel_room_mean_score_round = hotel_room_mean_score.round()
-
-    return hotel_room_mean_score_round
+    print(hotel_room_mean_score)
 
 
 def view_responses():
@@ -440,8 +430,8 @@ def validate_view_responses(input):
             raise ValueError(
                 print("A valid access code is required, try again please")
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError:
+        print("Invalid data, please try again.\n")
         return False
 
     return True
@@ -496,3 +486,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
