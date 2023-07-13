@@ -559,7 +559,7 @@ def main():
     print("What would you like to do?\n")
     print("1. Enter responses\n")
     print("2. View responses\n")
-    print("3. Exit the Guest Feedback Form")
+    print("3. Exit the Guest Feedback Form\n")
 
     while True:
         # 1. Ask admin for input.
