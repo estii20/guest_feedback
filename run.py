@@ -181,7 +181,7 @@ def get_hotel_room_score():
     return hotel_room_data
 
 
-def validate_score(values):
+def validate_score(value):
     """
     Raises action from user if score not entered
     in correct format.
@@ -194,8 +194,7 @@ def validate_score(values):
                 False otherwise
     """
     try:
-        [int(value) for value in values]
-        if values not in ["1", "2", "3", "4", "5"]:
+        if value not in ["1", "2", "3", "4", "5"]:
             raise ValueError(
                 print("A value between 1 - 5 required, try again please\n")
             )
@@ -279,8 +278,6 @@ def update_feedback_worksheet(data):
     data = (
         [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
         )
-
-    update_feedback_worksheet(data)
 
 
 def enter_responses():
