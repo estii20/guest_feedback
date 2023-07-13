@@ -309,7 +309,6 @@ def enter_responses():
     data = (
         [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
         )
-    update_feedback_worksheet(data)
 
 
 def calculate_front_desk_mean_score():
@@ -319,11 +318,13 @@ def calculate_front_desk_mean_score():
     print("Calculating front desk mean score...\n")
     print("Mean front desk score is: \n")
 
-    front_desk = SHEET.worksheet("feedback")
+    front_desk_column = SHEET.worksheet("feedback").col_values(3)
 
-    front_desk_column = pd.DataFrame(front_desk)
+    front_desk_df = pd.DataFrame(
+        {"front_desk": front_desk_column[1:]}
+    )
 
-    front_desk_mean_score = front_desk_column["front_desk"].mean(
+    front_desk_mean_score = front_desk_df["front_desk"].mean(
         axis=0, skipna=False
         )
 
@@ -337,11 +338,13 @@ def calculate_restaurant_mean_score():
     print("Calculating restaurant mean score...\n")
     print("Mean restaurant score is: \n")
 
-    restaurant = SHEET.worksheet("feedback")
+    restaurant_column = SHEET.worksheet("feedback").col_values(4)
 
-    restaurant_column = pd.DataFrame(restaurant)
+    restaurant_df = pd.DataFrame(
+        {"restaurant": restaurant_column[1:]}
+    )
 
-    restaurant_mean_score = restaurant_column["restaurant"].mean(
+    restaurant_mean_score = restaurant_df["restaurant"].mean(
         axis=0, skipna=False
         )
 
@@ -355,11 +358,15 @@ def calculate_spa_mean_score():
     print("Calculating spa mean score...\n")
     print("Mean spa score is: \n")
 
-    spa = SHEET.worksheet("feedback")
+    spa_column = SHEET.worksheet("feedback").col_values(5)
 
-    spa_column = pd.DataFrame(spa)
+    spa_df = pd.DataFrame(
+        {"spa": spa_column[1:]}
+    )
 
-    spa_mean_score = spa_column["spa"].mean(axis=0, skipna=False)
+    spa_mean_score = spa_df["spa"].mean(
+        axis=0, skipna=False
+        )
 
     return spa_mean_score
 
@@ -371,11 +378,13 @@ def calculate_hotel_room_mean_score():
     print("Calculating hotel room mean score...\n")
     print("Mean hotel room score is: \n")
 
-    hotel_room = SHEET.worksheet("feedback")
+    hotel_room_column = SHEET.worksheet("feedback").col_values(6)
 
-    hotel_room_column = pd.DataFrame(hotel_room)
+    hotel_room_df = pd.DataFrame(
+        {"hotel_room": hotel_room_column[1:]}
+    )
 
-    hotel_room_mean_score = hotel_room_column["hotel_room"].mean(
+    hotel_room_mean_score = hotel_room_df["hotel_room"].mean(
         axis=0, skipna=False
         )
 
@@ -532,4 +541,7 @@ def main():
 
 
 if __name__ == "__main__":
+    calculate_front_desk_mean_score()
     main()
+
+
