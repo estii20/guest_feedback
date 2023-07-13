@@ -398,7 +398,7 @@ def get_offers_yes(data):
     if offers_yes_column == ["yes", "Y", "y", "YES"]:
         return offers_yes_column
     else:
-        get_column_front_desk()
+        calculate_front_desk_mean_score()
 
 
 def update_special_offers_worksheet():
@@ -520,7 +520,7 @@ def main():
         # Exit the loop and uses the input
         break
 
-    # after validation, uses the input to either enter 
+    # after validation, uses the input to either enter
     # or view responses or exit the terminal.
     if menu_choice == "1":
         enter_responses()
