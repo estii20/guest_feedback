@@ -4,9 +4,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 # For matching the email format with the input a RegEx pattern
 import re
-from pprint import pprint
-import pandas as pd
-import numpy as np
+# For exit from the main menu
+import sys
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -537,6 +536,11 @@ def validate_view_responses(values):
     return True
 
 
+def exit_feedback_form():
+    print("Exiting the Guest Feedback Form...\n")
+    sys.exit('Bye')
+
+
 def main():
     """
     Program starts, main menu is displayed.
@@ -555,24 +559,29 @@ def main():
     print("What would you like to do?\n")
     print("1. Enter responses\n")
     print("2. View responses\n")
+    print("3. Exit the Guest Feedback Form")
 
     while True:
-        # 1. Ask for input.
+        # 1. Ask admin for input.
         menu_choice = input("Enter choice\n").strip()
 
-        # 2. Check if the input violates any of your criteria.
-        if menu_choice not in ["1", "2"]:
+        # 2. Checks if the input violates any of the criteria.
+        if menu_choice not in ["1", "2", "3"]:
             print("Please enter one of the choices above.\n")
             continue
-        # Eventually, exit the loop and use the input
+        # Exit the loop and uses the input
         break
 
-    # after validation, use the input:
+    # after validation, uses the input to either enter 
+    # or view responses or exit the terminal.
     if menu_choice == "1":
         enter_responses()
-
-    else:
+    elif menu_choice == "2":
         view_responses()
+    else:
+        menu_choice == "3"
+        exit_feedback_form()
 
 
-main()
+if __name__ == "__main__":
+    main()
