@@ -388,6 +388,27 @@ def calculate_hotel_room_mean_score():
     print(hotel_room_mean_score)
 
 
+def get_special_offers_emails():
+    """
+    Get the guest information for special offers
+    if guests answered yes to receive them
+    """
+    print("Getting info for guests wanting special offers...\n")
+
+    special_offers = SHEET.worksheet("feedback").get_all_records()
+
+    special_offers_df = pd.DataFrame(
+        {"special_offers": special_offers[1:]}
+    )
+
+    special_offers_yes = (special_offers_df["special_offers"] == "yes")
+
+    special_offers_df[special_offers_yes]
+
+    print(special_offers_df)
+    sys.exit('Bye')
+
+
 def view_responses():
     """
     Get access code from the user
@@ -486,4 +507,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+get_special_offers_emails()
 
