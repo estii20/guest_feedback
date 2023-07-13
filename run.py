@@ -261,6 +261,24 @@ def update_feedback_worksheet(data):
     feedback_worksheet.append_row(data)
     print("Data updated successfully.\n")
 
+    name = get_name_input()
+
+    email = get_email_data()
+
+    front_desk = get_front_desk_score()
+
+    restaurant = get_restaurant_score()
+
+    spa = get_spa_score()
+
+    hotel_room = get_hotel_room_score()
+
+    special_offers = get_special_offers()
+
+    data = (
+        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
+        )
+
 
 def enter_responses():
     """
@@ -289,6 +307,8 @@ def enter_responses():
         [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
         )
 
+    update_feedback_worksheet(data)
+
 
 def calculate_front_desk_mean_score():
     """
@@ -307,7 +327,9 @@ def calculate_front_desk_mean_score():
         axis=0, skipna=False
         )
 
-    return front_desk_mean_score
+    front_desk_mean_score_round = front_desk_mean_score.round()
+
+    return front_desk_mean_score_round
 
 
 def calculate_restaurant_mean_score():
@@ -327,7 +349,9 @@ def calculate_restaurant_mean_score():
         axis=0, skipna=False
         )
 
-    return restaurant_mean_score
+    restaurant_mean_score_round = restaurant_mean_score.round()
+
+    return restaurant_mean_score_round
 
 
 def calculate_spa_mean_score():
@@ -347,7 +371,9 @@ def calculate_spa_mean_score():
         axis=0, skipna=False
         )
 
-    return spa_mean_score
+    spa_mean_score_round = spa_mean_score.round()
+
+    return spa_mean_score_round
 
 
 def calculate_hotel_room_mean_score():
@@ -367,15 +393,17 @@ def calculate_hotel_room_mean_score():
         axis=0, skipna=False
         )
 
-    return hotel_room_mean_score
+    hotel_room_mean_score_round = hotel_room_mean_score.round()
+
+    return hotel_room_mean_score_round
 
 
 def get_offers_yes(data):
     """
-    Filter the data to get all data with yes/YES or Y,y
+    Filter the data to get all data with yes or y
 
     Args:
-        data: List if str - Get data from the feedback sheet if yes/y/Y/YES
+        data: List if str - Get data from the feedback sheet if yes/y
 
     """
     offers_yes_column = []
@@ -383,8 +411,8 @@ def get_offers_yes(data):
     offers_yes = SHEET.worksheet("feedback")
     offers_yes_column = offers_yes.col_values(7)
 
-    if offers_yes_column == ["yes", "Y", "y", "YES"]:
-        return offers_yes_column
+    if offers_yes_column.lower() == ["yes", "y"]:
+        return get_offers_yes(data)
     else:
         calculate_front_desk_mean_score()
 
@@ -400,9 +428,11 @@ def update_special_offers_worksheet():
     data = []
 
     print("Updating special offer worksheet...\n")
-    special_offer_worksheet = SHEET.worksheet("special_offer_worksheet")
+    special_offer_worksheet = SHEET.worksheet("special_offers_email")
     special_offer_worksheet.append_row(data)
     print("Data updated successfully.\n")
+
+    return update_special_offers_worksheet()
 
 
 def get_special_offers_info():
@@ -522,5 +552,4 @@ def main():
 if __name__ == "__main__":
     calculate_front_desk_mean_score()
     main()
-
 
