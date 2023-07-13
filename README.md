@@ -15,11 +15,11 @@ The Guest Feedback Form is currently paper based for the guests to complete upon
 
 ## Portfolio Project 3
 
-![Hotel Guest Feedback Form]( "Image of Guest Feedback Terminal")
-
 - [Github Link](https://github.com/estii20/guest_feedback)
 
 - [Heroku Link](https://heroku.com)
+
+![Hotel Guest Feedback Form](features/paper_feedback_form.png "Image of Guest Feedback Terminal")
 
 ## Table of contents
 
@@ -81,7 +81,7 @@ __Guest Email__
 
 Asks for guest email  input from the admin until email data entered correctly.
 
-![Get Email Terminal Image](features/email copy.png "Image of get email function in the terminal")
+![Get Email Terminal Image](features/email.png "Image of get email function in the terminal")
 
 Once the Guest Email is entered correctly the worksheet under the Email column is updated. 
 
