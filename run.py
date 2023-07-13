@@ -237,7 +237,7 @@ def validate_special_offers(input):
                 False otherwise
     """
     try:
-        if input not in ["yes", "y", "no", "n", "Yes", "Y", "No", "N"]:
+        if input.lower() not in ["yes", "y", "no", "n"]:
             raise ValueError(
                     print("yes or no required, try again please\n")
                 )
