@@ -4,6 +4,9 @@ import gspread
 from google.oauth2.service_account import Credentials
 # For matching the email format with the input a RegEx pattern
 import re
+from pprint import pprint
+import pandas as pd
+import numpy as np
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -314,13 +317,9 @@ def get_column_front_desk():
     the entries for the front desk score and returns the data
     """
     front_desk = SHEET.worksheet("feedback")
+    front_desk_column = front_desk.col_values(3)
 
-    front_desk = []
-
-    for ind in range(0, 3):
-        front_desk = front_desk.col_values(ind)
-
-    return front_desk
+    return front_desk_column
 
 
 def calculate_front_desk_mean_score(values):
@@ -332,9 +331,9 @@ def calculate_front_desk_mean_score(values):
 
     front_desk_mean_score = []
 
-    for column in values:
-        ront_desk_column = [int(num) for num in column]
-        front_desk_mean = sum(ront_desk_column) / len(ront_desk_column)
+    for front_desk_column in values:
+        front_desk_column = [int(num) for num in front_desk_column]
+        front_desk_mean = sum(front_desk_column) / len(front_desk_column)
         front_desk_mean_score = (round(front_desk_mean))
 
     return front_desk_mean_score
@@ -345,12 +344,9 @@ def get_column_restaurant():
     Collects a column of values from feedback worksheet, collecting
     the entries for the restaurant score and returns the data
     """
+
     restaurant = SHEET.worksheet("feedback")
-
-    restaurant_column = []
-
-    for ind in range(0, 4):
-        restaurant_column = restaurant.col_values(ind)
+    restaurant_column = restaurant.col_values(4)
 
     return restaurant_column
 
@@ -378,11 +374,7 @@ def get_column_spa():
     the entries for the spa score and returns the data
     """
     spa = SHEET.worksheet("feedback")
-
-    spa_column = []
-
-    for ind in range(0, 5):
-        spa_column = spa.col_values(ind)
+    spa_column = spa.col_values(5)
 
     return spa_column
 
@@ -409,12 +401,9 @@ def get_column_hotel_room():
     Collects a column of values from feedback worksheet, collecting
     the entries for the hotel room score and returns the data
     """
+
     hotel_room = SHEET.worksheet("feedback")
-
-    hotel_room_column = []
-
-    for ind in range(0, 6):
-        hotel_room_column = hotel_room.col_values(ind)
+    hotel_room_column = hotel_room.col_values(6)
 
     return hotel_room_column
 
@@ -444,15 +433,15 @@ def get_offers_yes(data):
         data: List if str - Get data from the feedback sheet if yes/y/Y/YES
 
     """
-    offers_yes = SHEET.worksheet("feedback")
-
     offers_yes_column = []
 
-    for offers_yes_column in range(0, 7):
-        if offers_yes == ["yes", "Y", "y", "YES"]:
-            return offers_yes_column
-        else:
-            get_column_front_desk()
+    offers_yes = SHEET.worksheet("feedback")
+    offers_yes_column = offers_yes.col_values(7)
+
+    if offers_yes_column == ["yes", "Y", "y", "YES"]:
+        return offers_yes_column
+    else:
+        get_column_front_desk()
 
 
 def update_special_offers_worksheet():
@@ -471,18 +460,16 @@ def update_special_offers_worksheet():
     print("Data updated successfully.\n")
 
 
-def get_special_offers_info(offers_yes_column):
+def get_special_offers_info():
     """
+    Displays the special offers sheet with the data in ther terminal.
     """
-
-    offers_yes_column = []
-
-    special_offers = []
 
     special_offers = SHEET.worksheet("special_offers_email")
+    special_offers = special_offers.get_all_records
     print("Special offers to email to are: \n")
 
-    return get_special_offers_info(offers_yes_column)
+    return get_special_offers_info()
 
 
 def view_responses():
@@ -498,7 +485,7 @@ def view_responses():
         view_responses = data_str.strip()
 
         if validate_view_responses(view_responses):
-            print("Code is valid!")
+            print("Code is valid!\n")
             break
 
     values = []
@@ -521,8 +508,7 @@ def view_responses():
 
     update_special_offers_worksheet()
 
-    offers_yes_column = []
-    get_special_offers_info(offers_yes_column)
+    get_special_offers_info()
 
 
 def validate_view_responses(values):
