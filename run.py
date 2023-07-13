@@ -261,24 +261,6 @@ def update_feedback_worksheet(data):
     feedback_worksheet.append_row(data)
     print("Data updated successfully.\n")
 
-    name = get_name_input()
-
-    email = get_email_data()
-
-    front_desk = get_front_desk_score()
-
-    restaurant = get_restaurant_score()
-
-    spa = get_spa_score()
-
-    hotel_room = get_hotel_room_score()
-
-    special_offers = get_special_offers()
-
-    data = (
-        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
-        )
-
 
 def enter_responses():
     """
