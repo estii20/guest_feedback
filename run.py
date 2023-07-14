@@ -9,7 +9,7 @@ import sys
 # For creating DataFrames for column average calculations
 import pandas as pd
 import numpy as np
-import pprint
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -48,15 +48,22 @@ def validate_name(input):
     """
     Raises action from user if name not entered
     is not atleast 2 characters
+    Args:
+        input: str - the name is input by the admin
+
+    Returns:
+        bool: True if the input 2 characters
+                False otherwise
     """
     try:
         if len(input) < 2:
             raise ValueError(
                 "Please enter a name that is at least 2 characters long."
                 )
-    except ValueError:
-        print('Invalid name, please try again.\n')
+    except ValueError as e:
+        print(f"Invalid name: {e}, please try again.\n")
         return False
+
     return True
 
 
@@ -97,9 +104,10 @@ def validate_email(input):
             raise ValueError(
                 "Enter valid email, please try again\n"
                     )
-    except ValueError:
-        print("Invalid data, please try again.\n")
+    except ValueError as e:
+        print(f"Invalid email: {e}, please try again.\n")
         return False
+
     return True
 
 
@@ -200,8 +208,8 @@ def validate_score(value):
             raise ValueError(
                 print("A value between 1 - 5 required, try again please\n")
             )
-    except ValueError:
-        print("Invalid data, please try again.\n")
+    except ValueError as e:
+        print(f"Invalid score: {e}, please try again.\n")
         return False
 
     return True
@@ -243,8 +251,8 @@ def validate_special_offers(input):
             raise ValueError(
                     print("yes or no required, try again please\n")
                 )
-    except ValueError:
-        print("Invalid data, please try again.\n")
+    except ValueError as e:
+        print(f"Invalid input: {e}, please try again.\n")
         return False
 
     return True
@@ -255,7 +263,7 @@ def update_feedback_worksheet(data):
     Given a list of cell values, add a row to the Google sheet with the data.
 
     Args:
-        data: List if str - A list of values for each cell in the row
+        data: A list of values for each cell in the row
         for name, email, front desk, restaurant, spa, room and special offers
     """
     print("Updating guest feedback worksheet...\n")
@@ -315,6 +323,7 @@ def enter_responses():
 def calculate_front_desk_mean_score():
     """
     Calculate the mean score for the front desk
+    using pandas DataFrames
     """
     print("Calculating front desk mean score...\n")
     print("Mean front desk score is: \n")
@@ -335,6 +344,7 @@ def calculate_front_desk_mean_score():
 def calculate_restaurant_mean_score():
     """
     Calculate the mean score for the restaurant
+    usinf pandas DataFrames
     """
     print("Calculating restaurant mean score...\n")
     print("Mean restaurant score is: \n")
@@ -355,6 +365,7 @@ def calculate_restaurant_mean_score():
 def calculate_spa_mean_score():
     """
     Calculate the mean score for the spa
+    using pandas DataFrames
     """
     print("Calculating spa mean score...\n")
     print("Mean spa score is: \n")
@@ -375,6 +386,7 @@ def calculate_spa_mean_score():
 def calculate_hotel_room_mean_score():
     """
     Calculate the mean score for the hotel room
+    using pandas DataFrames
     """
     print("Calculating hotel room mean score...\n")
 
@@ -397,7 +409,7 @@ def get_guest_feedback():
     if guests answered yes to receive them
     """
     print("Getting info from guest feedback...\n")
-    
+
     guest_feedback = SHEET.worksheet("feedback").get_all_values()
 
     guest_feedback_df = pd.DataFrame(guest_feedback[1:])
@@ -472,7 +484,7 @@ def main():
     2. View responses
     The admin enters access code (hardcoded password)
     then the admin can view data average score for each e.g. front desk.
-    Also the admin can get guests emails who wish to receive special offers
+    Also the admin can get guest feedback information as a pandas DataFrame.
     """
     print('Welcome to the Guest Feedback Form.\n')
 
@@ -505,4 +517,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
