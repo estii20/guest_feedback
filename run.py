@@ -6,7 +6,10 @@ from google.oauth2.service_account import Credentials
 import re
 # For exit from the main menu
 import sys
+# For creating DataFrames for column average calculations
 import pandas as pd
+import numpy as np
+import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -236,7 +239,7 @@ def validate_special_offers(input):
                 False otherwise
     """
     try:
-        if input.lower() not in ["yes", "y", "no", "n"]:
+        if input.lower() not in ["yes", "no"]:
             raise ValueError(
                     print("yes or no required, try again please\n")
                 )
@@ -388,25 +391,18 @@ def calculate_hotel_room_mean_score():
     print(hotel_room_mean_score)
 
 
-def get_special_offers_emails():
+def get_guest_feedback():
     """
     Get the guest information for special offers
     if guests answered yes to receive them
     """
-    print("Getting info for guests wanting special offers...\n")
+    print("Getting info from guest feedback...\n")
+    
+    guest_feedback = SHEET.worksheet("feedback").get_all_values()
 
-    special_offers = SHEET.worksheet("feedback").get_all_records()
+    guest_feedback_df = pd.DataFrame(guest_feedback[1:])
 
-    special_offers_df = pd.DataFrame(
-        {"special_offers": special_offers[1:]}
-    )
-
-    special_offers_yes = (special_offers_df["special_offers"] == "yes")
-
-    special_offers_df[special_offers_yes]
-
-    print(special_offers_df)
-    sys.exit('Bye')
+    print(guest_feedback_df)
 
 
 def view_responses():
@@ -432,6 +428,8 @@ def view_responses():
     calculate_spa_mean_score()
 
     calculate_hotel_room_mean_score()
+
+    get_guest_feedback()
 
 
 def validate_view_responses(input):
@@ -507,7 +505,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-get_special_offers_emails()
 
