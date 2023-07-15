@@ -56,7 +56,7 @@ The main menu asks option to
 The main aims for the user are;
 
 1. Easily navigate between the different functions available in the application
-2. Provide clear instrctions to the admin on how to add data.
+2. Provide clear instructions to the admin on how to add data.
 3. Review and analyse data with clear terminal instructions on how to access the data.
 4. Clearly understand how to interact with the application to get feedback based on the data.
 
