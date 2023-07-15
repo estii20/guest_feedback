@@ -216,7 +216,7 @@ __Validator Testing__
 
 [PEP8online.com](https://pep8ci.herokuapp.com/)
 
-I ran code through the PEP8 validator and it displayed there was trailing white space. Corrected this run.py file and reran the test. The next test gave the results all clear no errors found.
+I ran code through the PEP8 validator and it displayed there was trailing white space and one line was too long. Removed the trailing white space and shortened the line in question and reran the test. The next test gave the results all clear no errors found.
 
 ## Deployment 
 
@@ -272,7 +272,7 @@ Changes pushed to the main branch will automatically update on the site.
 - Create the Google Spreadsheet 
 - Log in to your Google account (create one if necessary)
 - Create a Google Spreadsheet called 'guest_feedback' on Google Drive with sheets called 'feedback'.
-- In row 1 of the sheet, enter the headings : name, email, front_desk, restaurant, spa, hotel_room, Special_offers.
+- In row 1 of the sheet, enter the headings : name, email, front_desk, restaurant, spa, hotel_room, offers.
 
 - Set up APIs using the Google Cloud Platform
 
