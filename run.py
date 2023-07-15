@@ -23,6 +23,11 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('guest_feedback')
 
 
+def exit_feedback_form():
+    print("Exiting the Guest Feedback Form...\n")
+    sys.exit('Bye')
+
+
 def get_name_input():
     """
     Get guest name input from the user until
@@ -271,23 +276,39 @@ def update_feedback_worksheet(data):
     feedback_worksheet.append_row(data)
     print("Data updated successfully.\n")
 
-    name = get_name_input()
 
-    email = get_email_data()
+def add_more_guests():
+    """
+    Choice to enter more data to the spreadsheet
+    Runs the functions from choice 1
+    yes if another key is entered the admin exits
+    """
+    print("Choice 2: Press y to continue or any key to exit \n")
 
-    front_desk = get_front_desk_score()
+    menu_choice = input("Choice 1: continue adding data: y \n")
 
-    restaurant = get_restaurant_score()
+    if menu_choice == "y":
+        name = get_name_input()
+            
+        email = get_email_data()
 
-    spa = get_spa_score()
+        front_desk = get_front_desk_score()
 
-    hotel_room = get_hotel_room_score()
+        restaurant = get_restaurant_score()
 
-    special_offers = get_special_offers()
+        spa = get_spa_score()
 
-    data = (
-        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
-        )
+        hotel_room = get_hotel_room_score()
+
+        special_offers = get_special_offers()
+
+        data = (
+            [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
+            )
+
+        update_feedback_worksheet(data)
+    else:
+        exit_feedback_form()
 
 
 def enter_responses():
@@ -318,6 +339,8 @@ def enter_responses():
         )
 
     update_feedback_worksheet(data)
+
+    add_more_guests()
 
 
 def calculate_front_desk_mean_score():
@@ -466,11 +489,6 @@ def validate_view_responses(input):
         return False
 
     return True
-
-
-def exit_feedback_form():
-    print("Exiting the Guest Feedback Form...\n")
-    sys.exit('Bye')
 
 
 def main():
