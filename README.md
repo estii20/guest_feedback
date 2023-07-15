@@ -64,6 +64,11 @@ The main aims for the user are;
 
 __Main Menu - 1. Enter Responses or 2. View Responses 3. Exit__
 
+![Main Terminal Image](features/main.png "Image of main function in the terminal")
+
+
+__Enter Responses__
+
 The Enter Responses function gets and validates data from admin
 
 _name_
