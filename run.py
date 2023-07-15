@@ -38,7 +38,7 @@ def get_name_input():
         print("Example: Joe Blogs\n")
 
         name_str = input("Enter guest name: \n")
-        print(f"The name provided is {name_str}")
+        print(f"The name provided is {name_str}\")
 
         name_input = name_str.strip()
 
@@ -63,7 +63,7 @@ def validate_name(input):
     try:
         if len(input) < 2:
             raise ValueError(
-                "Please enter a name that is at least 2 characters long."
+                "Please enter a name that is at least 2 characters long.\n"
                 )
     except ValueError as e:
         print(f"Invalid name: {e}, please try again.\n")
@@ -160,7 +160,7 @@ def get_restaurant_score():
         restaurant_data = data_str.strip()
 
         if validate_score(restaurant_data):
-            print("Score is valid!")
+            print("Score is valid!\n")
             break
 
     return restaurant_data
@@ -185,7 +185,7 @@ def get_spa_score():
         spa_data = data_str.strip()
 
         if validate_score(spa_data):
-            print("Score is valid!")
+            print("Score is valid!\n")
             break
 
     return spa_data
@@ -506,7 +506,7 @@ def validate_view_responses(input):
     try:
         if input != "5794":
             raise ValueError(
-                print("A valid access code is required, try again please")
+                print("A valid access code is required, try again please\n")
             )
     except ValueError:
         print("Invalid data, please try again.\n")
