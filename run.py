@@ -122,7 +122,12 @@ def get_front_desk_score():
     score data entered correctly.
     """
     while True:
-        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Please enter score 1 - 5\n")
+        print("1=Excellent\n")
+        print("2=Very Satisfactory\n")
+        print("3=Satisfactory\n")
+        print("4=Unsatisfactory\n")
+        print("5=Poor\n")
         print("Example: 1\n")
 
         data_str = input("Enter guest front desk score here: \n")
@@ -142,7 +147,12 @@ def get_restaurant_score():
     score data entered correctly.
     """
     while True:
-        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Please enter score 1 - 5\n")
+        print("1=Excellent\n")
+        print("2=Very Satisfactory\n")
+        print("3=Satisfactory\n")
+        print("4=Unsatisfactory\n")
+        print("5=Poor\n")
         print("Example: 1\n")
 
         data_str = input("Enter guest restaurant score here: \n")
@@ -162,7 +172,12 @@ def get_spa_score():
     score data entered correctly.
     """
     while True:
-        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Please enter score 1 - 5\n")
+        print("1=Excellent\n")
+        print("2=Very Satisfactory\n")
+        print("3=Satisfactory\n")
+        print("4=Unsatisfactory\n")
+        print("5=Poor\n")
         print("Example: 1\n")
 
         data_str = input("Enter guest spa score here: \n")
@@ -182,7 +197,12 @@ def get_hotel_room_score():
     score data entered correctly.
     """
     while True:
-        print("Please enter score 1=Excellent, 2=Good 3=Satisfactory 4=Poor\n")
+        print("Please enter score 1 - 5\n")
+        print("1=Excellent\n")
+        print("2=Very Satisfactory\n")
+        print("3=Satisfactory\n")
+        print("4=Unsatisfactory\n")
+        print("5=Poor\n")
         print("Example: 1\n")
 
         data_str = input("Enter guest hotel room score here: \n")
@@ -230,13 +250,13 @@ def get_special_offers():
 
         data_str = input("Enter guest special offer option here: \n")
 
-        special_offers_data = data_str.strip()
+        offers_data = data_str.strip()
 
-        if validate_special_offers(special_offers_data):
+        if validate_special_offers(offers_data):
             print("It is valid!")
             break
 
-    return special_offers_data
+    return offers_data
 
 
 def validate_special_offers(input):
@@ -288,8 +308,9 @@ def add_more_guests():
     menu_choice = input("Choice 1: continue adding data: y \n")
 
     if menu_choice == "y":
+
         name = get_name_input()
-            
+
         email = get_email_data()
 
         front_desk = get_front_desk_score()
@@ -300,13 +321,16 @@ def add_more_guests():
 
         hotel_room = get_hotel_room_score()
 
-        special_offers = get_special_offers()
+        offers = get_special_offers()
 
         data = (
-            [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
+            [name, email, front_desk, restaurant, spa, hotel_room, offers]
             )
 
         update_feedback_worksheet(data)
+
+        add_more_guests()
+
     else:
         exit_feedback_form()
 
@@ -332,10 +356,10 @@ def enter_responses():
 
     hotel_room = get_hotel_room_score()
 
-    special_offers = get_special_offers()
+    offers = get_special_offers()
 
     data = (
-        [name, email, front_desk, restaurant, spa, hotel_room, special_offers]
+        [name, email, front_desk, restaurant, spa, hotel_room, offers]
         )
 
     update_feedback_worksheet(data)

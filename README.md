@@ -1,6 +1,6 @@
 # Hotel Guest Feedback Form
 
-A generic hotel guest feedback terminal to provide useful information to the hotel based on guests average score feedback for each department. Namely, the Front Desk, the Restaurant, the Spa and the Hotel Room.
+A generic hotel guest feedback terminal to provide useful information to the hotel based on guests average score feedback for each department. Namely, the Front Desk, the Restaurant, the Spa and the Hotel Room and also asks if they wish to receive special offers.
 
 This is useful information to the Hotel Marketing Department so that they can know;
 
@@ -14,7 +14,7 @@ This is also very helpful to provide feedback to the operations department for i
 
 The Guest Feedback Form provides a way of monitoring on a daily basis how the hotel is viewed by the guests and averages the scores made by the guests for each department.
 If the scores are particularly low then improvements to that department can be implemented.
-Also if the hotel department has a high score the staff in those departments can be recognised for their hard work.
+Also, if the hotel department has a high score the staff in those departments can be recognised for their hard work.
 
 The Guest Feedback Form is currently paper based for the guests to complete upon check out. The form is short so that guests are not put off from completing the form. A hotel admin is then able to add the guest data to the terminal or with an access code view the guest data.
 
@@ -24,23 +24,23 @@ The Guest Feedback Form is currently paper based for the guests to complete upon
 
 - [Heroku Link](https://heroku.com)
 
-![Hotel Guest Feedback Form](features/paper_feedback_form.png "Image of Guest Feedback Terminal")
+![Hotel Guest Feedback Form](features/form.png "Image of Guest Feedback Terminal")
 
 ## Table of contents
 
 How it works
-1. Features
-2. Future Features
-3. Data Model
+1. User Experience (UX)
+2. Features
+3. Future Features
 4. Bugs
 5. Testing
 6. Deployment
 7. Credits
 8. Acknowledgements
 
-### How it works
+### User Experience (UX)
 
-The marketing department has designed a guest feedback form on paper to encourage guests to leave their scores for the hotel based on the range 1 = Excellent, 2 = Good 3 = Satisfactory 5 = Poor. 
+The marketing department has designed a guest feedback form on paper to encourage guests to leave their scores for the hotel based on the range 1=Excellent, 2=Very Satisfactory 3=Satisfactory 4=Unsatisfactory 5=Poor. 
 
 It is a simple form that collects data such as Guest Name, Guest Email, Guest Score for the Front Desk, Guest Score for the Restaurant, Guest Score for the spa and Guest Score for the Hotel Room. 
 
@@ -48,7 +48,17 @@ Guests are also asked if they would like to receive special offers by email.
 
 The Hotel Admin inputs this data into the Guest Feedback Terminal. This data is shared through the google sheets API to the Guest Feedback Worksheet. 
 
-From this worksheet there is the option to 1. Enter Responses or 2. View Responses or 3. Exit
+The main menu asks option to 
+1. Enter Responses 
+2. View Responses 
+3. Exit
+
+The main aims for the user are;
+
+1. Easily navigate between the different functions available in the application
+2. Provide clear instrctions to the admin on how to add data.
+3. Review and analyse data with clear terminal instructions on how to access the data.
+4. Clearly understand how to interact with the application to get feedback based on the data.
 
 ## Features
 
@@ -60,7 +70,13 @@ _name_
 
 _email_
 
-_score for each_ (front desk, restaurant, room, spa) with a rating for each on scale 1-5. 1 = Excellent, 2 = Good 3 = Satisfactory 5 = Poor
+_score for each_ (front desk, restaurant, room, spa) with a rating for each on scale 1-5. 
+
+1. Excellent
+2. Very Satisfactory 
+3. Satisfactory 
+4. Unsatisfactory 
+5. Poor
 
 _Special offers yes or no_
 
@@ -80,7 +96,6 @@ Asks for guest name input from the admin until name data entered correctly. The 
 ![Validate Name Terminal Image](features/name_valid.png "Image of validate name function in the terminal")
 
 Once the Guest Name is entered correctly the worksheet under the name column is updated. 
-
 
 __Guest Email__
 
@@ -110,7 +125,21 @@ Asks for guest input from the admin if they would like to receive special offers
 
 ![Invalid  Special Offers Image](features/not_valid_special.png "Image of validate special offer function in the terminal")
 
-Once the data is entered correctly the worksheet under the special offers column is updated. 
+Once the data is entered correctly the worksheet under the special offers column is updated.
+
+__Continue Adding Data or Exit__
+
+The admin is asked if they would like to continue adding another guests feedback. `y` to continue and any key to exit the terminal.
+
+![Continue adding data Terminal Image](features/continue.png "Image of continue adding data in the terminal")
+
+![Exit Terminal Image](features/exit.png "Image of exit the terminal")
+
+__Access Code__
+
+For admins to view guest data they must insert a hardcoded access code.
+
+![Access code Terminal Image](features/access_code.png "Image of access code in the terminal")
 
 __Average Score__
 
@@ -139,8 +168,7 @@ Provides the mock terminal for the project.
 
 [Google Spreadsheets:](https://en.wikipedia.org/wiki/Google_Sheets) used as the external data store for the project.
 
-[Google Drive API:]
-(https://developers.google.com/drive/api/v3/about-sdk) used to generate credentials used in the project to securely access the Google Spreadsheet.
+[Google Drive API:](https://developers.google.com/drive/api/v3/about-sdk) used to generate credentials used in the project to securely access the Google Spreadsheet.
 
 [Google Sheets API:](https://developers.google.com/sheets/api) used to support interactions (e.g. read/write functionality) between the code and data stored in the Google Spreadsheet.
 
@@ -156,6 +184,8 @@ Provides the mock terminal for the project.
 
 [sys](https://docs.python.org/3/library/sys.html) to create an exit from the terminal
 
+[re](https://docs.python.org/3/library/re.html) provides regular expression matching operations
+
 
 | Test | Description | Expected Outcome | Outcome |
 | --- | --- | --- | --- |
@@ -163,13 +193,14 @@ Provides the mock terminal for the project.
 | Validates the data entry | Each time data is added to the terminal it should be validated as correct before updating the spreadsheet | The spreadsheet should only be updated once the data is entered in the correct format | Data is verified and then the spreadsheet is updated | The data is entered correctly and then the spreadsheet is updated | The score data returned to the admin is the average of the last ten scores for the hotel |
 | The data is only accessed with an access code | The data can only be viewed with authorisation | The data is viewed after access is granted | Data is seen only if the correct code is given | The score shows the mean average score of each department correctly | The score mean is correctly shown in the terminal |
 | Viewing guest data| Retrieves the mean score for front desk, restaurant, spa and hotel room. Plus all the guest feedback information | When selecting 2. View information the data is displayed in the terminal | Selecting 2 retrieves the data correctly |
+| Add more guests or exit| Asks the admin if they would like to exit the terminal (any key but y) or add more guests *key in (y) | When selecting y. the admin can add another guest to the data, when selecting any other key the admin can exit the terminal | Selecting y asks for the guests data and any other key exits the terminal |
 
 
 ## Bugs and Fixes
 
-The validation for the name entry was not allowing spaces to be entered, so I removed the isalpha() so that all characters can be entered. For cultural reasons this was a better solution anyway as many people have varying name formats.
+The validation for the name entry was not allowing spaces to be entered, so I removed the `isalpha()` so that all characters can be entered. For cultural reasons this was a better solution anyway as many people have varying name formats.
 
-The validation for special offers yes or no, I added the lower() so that upper and lower case versions were accepted.
+The validation for special offers yes or no, I added the `lower()` so that upper and lower case versions were accepted.
 
 
 ## Unfixed Bugs
@@ -252,10 +283,10 @@ Changes pushed to the main branch will automatically update on the site.
 Then it is necessary to; 
 
 Create an account with heroku.com
-Create a new Heroku App
-Set the buildbacks to Python and Node JS in that order
-Link the Heroku App to the repository
-Click on Deploy
+- Create a new Heroku App
+- Set the buildbacks to Python and Node JS in that order
+- Link the Heroku App to the repository
+- Click on Deploy
 
 ## Credits
 
@@ -272,7 +303,7 @@ __Resources__
 
 [Range of numbers in Python](https://www.tutorialkart.com/python/python-range/python-if-in-range/#gsc.tab=0)
 
-[Check if match email is format](https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/ ) and (https://stackabuse.com/python-validate-email-address-with-regular-expressions-regex/) and (https://www.w3schools.com/python/python_regex.asp)
+[Check if match email is format](https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/ ) 
 
 [How to write yes or no questions in Python](https://www.grepper.com/answers/207051/how+to+ask+a+yes+or+no+question+on+python)
 
