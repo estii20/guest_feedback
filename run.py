@@ -38,7 +38,7 @@ def get_name_input():
         print("Example: Joe Blogs\n")
 
         name_str = input("Enter guest name: \n")
-        print(f"The name provided is {name_str}\")
+        print(f"The name provided is {name_str}")
 
         name_input = name_str.strip()
 
