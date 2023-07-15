@@ -62,7 +62,7 @@ The main aims for the user are;
 
 ## Features
 
-__Main Menu - 1. Enter Responses or 2. View Responses__
+__Main Menu - 1. Enter Responses or 2. View Responses 3. Exit__
 
 The Enter Responses function gets and validates data from admin
 
@@ -109,7 +109,7 @@ __Guest Score__
 
 Asks for guest score input from the admin until score data entered correctly. The score for Front Desk, Restaurant, Spa and Hotel Room are requested through prompts.
 
-![Get Score Terminal Image](features/front_desk.png "Image of get score function in the terminal")
+![Get Score Terminal Image](features/score.png "Image of get score function in the terminal")
 
 ![Validate Score Terminal Image](features/valid_score.png "Image of validate score function in the terminal")
 
@@ -132,6 +132,8 @@ __Continue Adding Data or Exit__
 The admin is asked if they would like to continue adding another guests feedback. `y` to continue and any key to exit the terminal.
 
 ![Continue adding data Terminal Image](features/continue.png "Image of continue adding data in the terminal")
+
+To exit the terminal
 
 ![Exit Terminal Image](features/exit.png "Image of exit the terminal")
 
@@ -214,7 +216,7 @@ __Validator Testing__
 
 [PEP8online.com](https://pep8ci.herokuapp.com/)
 
-I ran code through the PEP8 validator and it displayed and no errors were found.
+I ran code through the PEP8 validator and it displayed there was trailing white space. Corrected this run.py file and reran the test. The next test gave the results all clear no errors found.
 
 ## Deployment 
 

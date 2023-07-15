@@ -303,9 +303,9 @@ def add_more_guests():
     Runs the functions from choice 1
     yes if another key is entered the admin exits
     """
-    print("Choice 2: Press y to continue or any key to exit \n")
+    print("Press y to continue or any key to exit \n")
 
-    menu_choice = input("Choice 1: continue adding data: y \n")
+    menu_choice = input("Continue adding data: \n")
 
     if menu_choice == "y":
 
